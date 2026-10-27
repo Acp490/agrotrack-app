@@ -1,0 +1,15 @@
+Dependencias locales (Render las instala por su cuenta)
+
+node_modules/
+
+Archivos de variables de entorno y credenciales locales
+
+.env
+
+Archivos de logs y temporales
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db

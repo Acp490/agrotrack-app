@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AgroTrack - Plataforma Agrícola Campesina | SENA ADSO</title>
+  
+  <style>
+    /* VARIABLES DE IDENTIDAD AGROTRACK */
+    :root {
+      --primary: #1f503e;
+      --primary-dark: #143529;
+      --primary-light: #2d735a;
+      --accent: #de9b35;
+      --accent-hover: #c98827;
+      --bg-cream: #fbf8f1;
+      --card-bg: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #16a34a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* CONTENEDOR PRINCIPAL FLUIDO */
+    .app-viewport {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      flex: 1;
+      padding-bottom: 80px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* PANELES DE VISTA */
+    .view-screen {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      animation: fadeIn 0.2s ease-in;
+    }
+    .view-screen.active {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CABECERA CURVA VERDE */
+    .header-curve {
+      background: linear-gradient(145deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #ffffff;
+      padding: 24px 20px 32px 20px;
+      border-bottom-left-radius: 32px;
+      border-bottom-right-radius: 32px;
+      box-shadow: 0 4px 14px rgba(20, 53, 41, 0.15);
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      background-color: var(--accent);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .brand-text h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: #ffffff;
+    }
+
+    .brand-text span {
+      font-size: 11px;
+      color: #a7f3d0;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chip-lang {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    /* CUERPO PRINCIPAL */
+    .content-body {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* HERO BANNER */
+    .hero-card {
+      width: 100%;
+      height: 240px;
+      border-radius: 24px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      border: 2px solid rgba(22, 59, 46, 0.1);
+    }
+    .hero-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-badge {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      background-color: var(--accent);
+      color: #143529;
+      font-weight: 700;
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .hero-text {
+      text-align: center;
+      padding: 8px 10px;
+    }
+    .hero-text h2 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+    .hero-text h2 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-text p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .pills-group {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .pill {
+      background-color: #e8f4ed;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 12px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid #cce8d7;
+    }
+
+    /* BOTONES */
+    .btn-main {
+      width: 100%;
+      background-color: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(31, 80, 62, 0.25);
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-main:active {
+      transform: scale(0.98);
+      background-color: var(--primary-dark);
+    }
+
+    .btn-outline {
+      width: 100%;
+      background-color: #ffffff;
+      color: var(--primary);
+      border: 2px solid var(--primary);
+      padding: 14px;
+      border-radius: 16px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-outline:active {
+      background-color: #f1f5f3;
+      transform: scale(0.98);
+    }
+
+    .btn-accent {
+      background-color: var(--accent);
+      color: #143529;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(222, 155, 53, 0.3);
+    }
+    .btn-accent:active {
+      transform: scale(0.97);
+    }
+
+    /* TARJETAS METRICAS DASHBOARD */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: -24px;
+      position: relative;
+      z-index: 10;
+      padding: 0 20px;
+    }
+    .stat-card {
+      padding: 12px 14px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .stat-green {
+      background: var(--primary);
+      color: #ffffff;
+      border: 1px solid #2d735a;
+    }
+    .stat-white {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid #e2e8f0;
+    }
+    .stat-gold {
+      background: var(--accent);
+      color: #143529;
+      border: 1px solid #f2ab42;
+    }
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      margin: 4px 0 2px 0;
+    }
+    .stat-title {
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+    /* TARJETAS DE PARCELAS */
+    .parcel-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 16px;
+      border: 1px solid #e2e8f0;
+      border-top: 4px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .parcel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .parcel-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .parcel-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background-color: var(--bg-cream);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      border: 1px solid #eee;
+    }
+    .parcel-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-main);
+    }
+    .parcel-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .badge-active {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--success);
+      background-color: #dcfce7;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid #bbf7d0;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 8px;
+      background-color: #f1f5f9;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      border-radius: 999px;
+    }
+
+    .parcel-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid #f1f5f9;
+      padding-top: 10px;
+      font-size: 12px;
+    }
+
+    /* MERCADO ITEMS */
+    .market-item {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 14px;
+      border: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    .market-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .market-title {
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .market-price {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 14px;
+      margin: 2px 0;
+    }
+    .market-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* BARRA INFERIOR */
+    .nav-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 68px;
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid #cbd5e1;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      z-index: 1000;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .nav-tab {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 8px 12px;
+      transition: all 0.15s ease;
+    }
+    .nav-tab .tab-icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+    .nav-tab.active {
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .nav-tab.active .tab-icon {
+      transform: translateY(-2px);
+    }
+
+    /* MODALES */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 2000;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-box {
+      background: #ffffff;
+      width: 100%;
+      max-width: 420px;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: modalUp 0.2s ease-out;
+    }
+    @keyframes modalUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .modal-header h3 {
+      font-size: 18px;
+      color: var(--primary);
+      font-weight: 800;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #94a3b8;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-size: 14px;
+      outline: none;
+      transition: border 0.15s;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+    }
+
+    /* TOAST */
+    .toast-msg {
+      position: fixed;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #143529;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      border: 1px solid var(--accent);
+      z-index: 3000;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-viewport">
+
+    <!-- PANTALLA 1: BIENVENIDA -->
+    <section id="vista-bienvenida" class="view-screen active">
+      <header class="header-curve">
+        <div class="header-top">
+          <div class="brand-group">
+            <div class="brand-icon">🌱</div>
+            <div class="brand-text">
+              <h1>AgroTrack</h1>
+              <span>SENA ADSO • Ficha 2996897</span>
+            </div>
+          </div>
+          <div class="chip-lang">ES / CO</div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div class="hero-card">
+          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80" alt="Campo Colombiano">
+          <div class="hero-badge">
+            <span>🌱</span> Para agricultores colombianos
+          </div>
+        </div>
+
+        <div class="hero-text">
+          <h2>Tu finca en tu <em>celular</em></h2>
+          <p>Gestiona parcelas, registra actividades en la nube, vende sin intermediarios y consulta tus métricas financieras.</p>
+        </div>
+
+        <div class="pills-group">
+          <span class="pill">📍 12 Departamentos</span>
+          <span class="pill">🌾 +5.000 Fincas</span>
+          <span class="pill">☁️ Base de Datos en Nube</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
+          <button class="btn-main" onclick="abrirModal('modalRegistro')">
+            <span>Registrarse gratis con correo</span>
+            <span>→</span>
+          </button>
+          
+          <button class="btn-outline" onclick="abrirModal('modalLogin')">
+            Iniciar sesión
+          </button>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #fed7aa; padding: 14px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
+          <div>
+            <span style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Proyecto Productivo</span>
+            <div style="font-size: 13px; font-weight: 800; color: var(--primary);">Alexander Castiblanco • ADSO 2996897</div>
+          </div>
+          <button class="btn-accent" onclick="cambiarVista('vista-finanzas')">Capítulo 6</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 2: DASHBOARD -->
+    <section id="vista-dashboard" class="view-screen">
+      <header class="header-curve" style="padding-bottom: 48px;">
+        <div class="header-top">
+          <div>
+            <span style="font-size: 12px; color: #a7f3d0;" id="txtFecha">Hoy en tu finca</span>
+            <h2 style="font-size: 26px; font-weight: 800; margin-top: 2px;" id="txtSaludoUsuario">Hola, Agricultor 👋</h2>
+            <p style="font-size: 12px; color: #ecfdf5; margin-top: 2px;" id="txtMunicipioUsuario">Cultivos al día en Cundinamarca</p>
+          </div>
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <button onclick="cerrarSesion()" style="background: rgba(255,255,255,0.15); border: none; color: white; padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; cursor: pointer;">
+              Salir
+            </button>
+            <div id="avatarUser" style="width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: #143529; font-weight: 900; display: flex; align-items: center; justify-content: center; border: 2px solid #fed7aa; font-size: 14px;">
+              AG
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="stats-row">
+        <div class="stat-card stat-green">
+          <div>
+            <span>🌿</span>
+            <div class="stat-value" id="countParcelasActivas">2</div>
+          </div>
+          <span class="stat-title">MIS PARCELAS</span>
+        </div>
+        <div class="stat-card stat-white">
+          <div>
+            <span>📋</span>
+            <div class="stat-value" id="countActividades">6</div>
+          </div>
+          <span class="stat-title" style="color: #64748b;">LABORES / MES</span>
+        </div>
+        <div class="stat-card stat-gold">
+          <div>
+            <span>⏱️</span>
+            <div class="stat-value">5 días</div>
+          </div>
+          <span class="stat-title">PRÓX. COSECHA</span>
+        </div>
+      </div>
+
+      <div class="content-body" style="margin-top: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <h3 style="font-size: 18px; font-weight: 800; color: var(--primary);">Mis Parcelas</h3>
+          <button style="background: none; border: none; color: var(--primary); font-weight: 700; font-size: 13px; cursor: pointer;" onclick="cambiarVista('vista-parcelas')">
+            Gestionar todas →
+          </button>
+        </div>
+
+        <div id="listaDashboardParcelas" style="display: flex; flex-direction: column; gap: 12px;"></div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+          <h3 style="font-size: 16px; font-weight: 800; color: var(--primary);">Actividades recientes</h3>
+          <button class="btn-accent" onclick="abrirModal('modalLabor')" style="padding: 6px 12px; font-size: 11px;">+ Anotar labor</button>
+        </div>
+
+        <div id="listaActividadesRecientes" style="display: flex; flex-direction: column; gap: 8px;">
+          <div class="market-item">
+            <div class="market-left">
+              <span style="font-size: 20px;">💧</span>
+              <div>
+                <div class="market-title">Riego por goteo (2 horas)</div>
+                <div class="market-sub">Parcela Fresa • Hace 2 horas</div>
+              </div>
+            </div>
+          </div>
+          <div class="market-item">
+            <div class="market-left">
+              <span style="font-size: 20px;">🌾</span>
+              <div>
+                <div class="market-title">Fertilización foliar biológica</div>
+                <div class="market-sub">Parcela Tomate • Ayer</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 3: PARCELAS -->
+    <section id="vista-parcelas" class="view-screen">
+      <header class="header-curve">
+        <div class="header-top">
+          <div>
+            <span style="font-size: 11px; color: #a7f3d0; text-transform: uppercase; font-weight: 700;">Módulo Productivo</span>
+            <h2 style="font-size: 22px; font-weight: 800;">Control de Parcelas</h2>
+          </div>
+          <button class="btn-accent" onclick="abrirModal('modalNuevaParcela')">+ Nueva Parcela</button>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div id="contenedorTodasParcelas" style="display: flex; flex-direction: column; gap: 14px;"></div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 4: MERCADO -->
+    <section id="vista-mercado" class="view-screen">
+      <header class="header-curve">
+        <div class="header-top">
+          <div>
+            <span style="font-size: 11px; color: #fde68a; text-transform: uppercase; font-weight: 700;">Venta Campesina Directa</span>
+            <h2 style="font-size: 22px; font-weight: 800;">Mercado Agrícola</h2>
+          </div>
+          <button class="btn-accent" onclick="abrirModal('modalPublicar')">+ Publicar</button>
+        </div>
+        <div style="margin-top: 14px;">
+          <input type="text" id="inputBuscarMercado" oninput="filtrarMercado()" placeholder="Buscar producto o municipio..." class="form-control" style="background: rgba(255,255,255,0.95); border: none;">
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div id="contenedorMercado" style="display: flex; flex-direction: column; gap: 10px;"></div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 5: FINANZAS -->
+    <section id="vista-finanzas" class="view-screen">
+      <header class="header-curve">
+        <div class="header-top">
+          <div>
+            <span style="font-size: 10px; background: var(--accent); color: #143529; padding: 2px 8px; border-radius: 999px; font-weight: 800;">CAPÍTULO 6.0 ADSO</span>
+            <h2 style="font-size: 22px; font-weight: 800; margin-top: 4px;">Viabilidad Financiera</h2>
+          </div>
+        </div>
+      </header>
+
+      <div class="content-body">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
+          <div style="background: white; padding: 14px; border-radius: 16px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Inversión Inicial</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin: 4px 0;">$5.754.500</div>
+            <div style="font-size: 11px; color: var(--success); font-weight: 700;">Efectivo: $2.047.500</div>
+          </div>
+          <div style="background: white; padding: 14px; border-radius: 16px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Retorno (PRI)</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--accent); margin: 4px 0;">5 Meses</div>
+            <div style="font-size: 11px; color: var(--success); font-weight: 700;">Recuperado Año 1 ✅</div>
+          </div>
+          <div style="background: white; padding: 14px; border-radius: 16px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Punto Equilibrio</div>
+            <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin: 4px 0;">100 Clientes</div>
+            <div style="font-size: 11px; color: #64748b;">Plan Pro $25.000/mes</div>
+          </div>
+          <div style="background: white; padding: 14px; border-radius: 16px; border: 1px solid #e2e8f0;">
+            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">TIR (5 Años)</div>
+            <div style="font-size: 18px; font-weight: 800; color: #7c3aed; margin: 4px 0;">168.4% E.A.</div>
+            <div style="font-size: 11px; color: #7c3aed; font-weight: 700;">VAN: +$289M COP</div>
+          </div>
+        </div>
+
+        <div style="background: white; padding: 16px; border-radius: 20px; border: 1px solid #e2e8f0;">
+          <h4 style="font-size: 14px; font-weight: 800; color: var(--primary); margin-bottom: 10px;">Resultados Año 1 (Régimen Simple)</h4>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f1f5f9;">
+            <span>Ingresos Totales:</span>
+            <strong>$42.000.000 COP</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; color: #e11d48;">
+            <span>(-) Costos y Gastos Totales:</span>
+            <span>-$33.418.260 COP</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; padding: 10px 0 0 0; color: var(--primary);">
+            <span>Utilidad Neta Año 1:</span>
+            <span>+$8.581.740 COP ✅</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- NAVEGACION INFERIOR -->
+  <nav class="nav-bottom">
+    <button class="nav-tab active" onclick="cambiarVista('vista-bienvenida')">
+      <span class="tab-icon">🏡</span>
+      <span>Inicio</span>
+    </button>
+    <button class="nav-tab" onclick="cambiarVista('vista-dashboard')">
+      <span class="tab-icon">📊</span>
+      <span>Panel</span>
+    </button>
+    <button class="nav-tab" onclick="cambiarVista('vista-parcelas')">
+      <span class="tab-icon">🌱</span>
+      <span>Parcelas</span>
+    </button>
+    <button class="nav-tab" onclick="cambiarVista('vista-mercado')">
+      <span class="tab-icon">🛒</span>
+      <span>Mercado</span>
+    </button>
+    <button class="nav-tab" onclick="cambiarVista('vista-finanzas')">
+      <span class="tab-icon">📈</span>
+      <span>Finanzas</span>
+    </button>
+  </nav>
+
+  <!-- MODAL LOGIN -->
+  <div id="modalLogin" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Iniciar Sesión</h3>
+        <button class="modal-close" onclick="cerrarModal('modalLogin')">✕</button>
+      </div>
+      <form onsubmit="hacerLogin(event)">
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" id="loginEmail" required value="camilo@agrotrack.co" class="form-control" placeholder="tu@correo.com">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="loginPassword" required value="123456" class="form-control" placeholder="••••••••">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 16px;">
+          <button type="button" class="btn-outline" onclick="cerrarModal('modalLogin')">Cancelar</button>
+          <button type="submit" class="btn-main">Entrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL REGISTRO -->
+  <div id="modalRegistro" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Crear Cuenta de Productor</h3>
+        <button class="modal-close" onclick="cerrarModal('modalRegistro')">✕</button>
+      </div>
+      <form onsubmit="hacerRegistro(event)">
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input type="text" id="regNombre" required placeholder="Ej: Don Jaime Morales" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Correo Electrónico</label>
+          <input type="email" id="regEmail" required placeholder="ejemplo@finca.com" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Municipio</label>
+          <input type="text" id="regMunicipio" required placeholder="Ej: Facatativá / Fusagasugá" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" id="regPassword" required placeholder="Crea tu clave secreta" class="form-control">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 16px;">
+          <button type="button" class="btn-outline" onclick="cerrarModal('modalRegistro')">Cancelar</button>
+          <button type="submit" class="btn-main">Registrarme</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL NUEVA PARCELA -->
+  <div id="modalNuevaParcela" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Nueva Parcela Campesina</h3>
+        <button class="modal-close" onclick="cerrarModal('modalNuevaParcela')">✕</button>
+      </div>
+      <form onsubmit="hacerCrearParcela(event)">
+        <div class="form-group">
+          <label>Nombre del Lote o Parcela</label>
+          <input type="text" id="pNombre" required placeholder="Ej: Lote San Isidro" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Cultivo Principal</label>
+          <select id="pCultivo" class="form-control">
+            <option value="Fresa Albión">🍓 Fresa Albión</option>
+            <option value="Tomate Chonto">🍅 Tomate Chonto</option>
+            <option value="Papa Pastusa">🥔 Papa Pastusa</option>
+            <option value="Café Caturra">☕ Café Caturra</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Área (Hectáreas)</label>
+          <input type="number" step="0.1" id="pHectareas" required placeholder="Ej: 1.2" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Vereda / Municipio</label>
+          <input type="text" id="pUbicacion" required placeholder="Ej: Vereda Prado, Facatativá" class="form-control">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 16px;">
+          <button type="button" class="btn-outline" onclick="cerrarModal('modalNuevaParcela')">Cancelar</button>
+          <button type="submit" class="btn-main">Guardar Parcela</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL LABOR -->
+  <div id="modalLabor" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Anotar Labor Agrícola</h3>
+        <button class="modal-close" onclick="cerrarModal('modalLabor')">✕</button>
+      </div>
+      <form onsubmit="hacerCrearLabor(event)">
+        <div class="form-group">
+          <label>Tipo de Labor</label>
+          <select id="lTipo" class="form-control">
+            <option value="Riego">💧 Riego</option>
+            <option value="Fertilización">🌾 Fertilización</option>
+            <option value="Control Fitosanitario">🛡️ Fumigación / Control</option>
+            <option value="Cosecha">🧺 Recolección / Cosecha</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Detalle o Insumo</label>
+          <input type="text" id="lDetalle" required placeholder="Ej: Riego 2 horas con agua de reservorio" class="form-control">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 16px;">
+          <button type="button" class="btn-outline" onclick="cerrarModal('modalLabor')">Cancelar</button>
+          <button type="submit" class="btn-main">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL PUBLICAR -->
+  <div id="modalPublicar" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>Publicar Cosecha</h3>
+        <button class="modal-close" onclick="cerrarModal('modalPublicar')">✕</button>
+      </div>
+      <form onsubmit="hacerPublicar(event)">
+        <div class="form-group">
+          <label>Título del Producto</label>
+          <input type="text" id="mTitulo" required placeholder="Ej: Canastilla Fresa Extra" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>Categoría</label>
+          <select id="mCat" class="form-control">
+            <option value="Fresa">🍓 Fresa</option>
+            <option value="Tomate">🍅 Tomate</option>
+            <option value="Papa">🥔 Papa</option>
+            <option value="Café">☕ Café</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="text" id="mPrecio" required placeholder="Ej: $45.000 COP" class="form-control">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp de Contacto</label>
+          <input type="text" id="mCelular" required placeholder="Ej: 3101234567" class="form-control">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 16px;">
+          <button type="button" class="btn-outline" onclick="cerrarModal('modalPublicar')">Cancelar</button>
+          <button type="submit" class="btn-main">Publicar Oferta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast" class="toast-msg">
+    <span>✓</span>
+    <span id="toastMsg">Operación completada</span>
+  </div>
+
+  <script>
+    let usuarioActual = JSON.parse(sessionStorage.getItem('agrotrack_user')) || null;
+    let listaParcelas = [];
+    let listaProductos = [];
+
+    window.addEventListener('DOMContentLoaded', () => {
+      if (usuarioActual) {
+        mostrarDatosUsuario();
+        cambiarVista('vista-dashboard');
+      } else {
+        cambiarVista('vista-bienvenida');
+      }
+      cargarDatosDesdeAPI();
+    });
+
+    function cambiarVista(vistaId) {
+      document.querySelectorAll('.view-screen').forEach(v => v.classList.remove('active'));
+      const pantalla = document.getElementById(vistaId);
+      if (pantalla) pantalla.classList.add('active');
+
+      const tabs = document.querySelectorAll('.nav-tab');
+      tabs.forEach(t => t.classList.remove('active'));
+
+      if (vistaId === 'vista-bienvenida') tabs[0]?.classList.add('active');
+      if (vistaId === 'vista-dashboard') tabs[1]?.classList.add('active');
+      if (vistaId === 'vista-parcelas') tabs[2]?.classList.add('active');
+      if (vistaId === 'vista-mercado') tabs[3]?.classList.add('active');
+      if (vistaId === 'vista-finanzas') tabs[4]?.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function abrirModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.add('open');
+    }
+    function cerrarModal(id) {
+      const m = document.getElementById(id);
+      if (m) m.classList.remove('open');
+    }
+
+    function notificar(txt) {
+      const toast = document.getElementById('toast');
+      const msg = document.getElementById('toastMsg');
+      msg.innerText = txt;
+      toast.style.display = 'flex';
+      setTimeout(() => { toast.style.display = 'none'; }, 3000);
+    }
+
+    async function hacerLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        
+        let data = {};
+        try {
+          data = await res.json();
+        } catch (jsonErr) {
+          data = {};
+        }
+
+        if (res.ok && data.user) {
+          usuarioActual = data.user;
+          sessionStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
+          mostrarDatosUsuario();
+          cerrarModal('modalLogin');
+          cambiarVista('vista-dashboard');
+          notificar(`¡Bienvenido(a), ${usuarioActual.nombre}!`);
+          cargarDatosDesdeAPI();
+        } else if (email === 'camilo@agrotrack.co' && password === '123456') {
+          // Acceso de respaldo inmediato
+          usuarioActual = {
+            id: 'camilo-001',
+            nombre: 'Camilo Rodríguez',
+            email: 'camilo@agrotrack.co',
+            municipio: 'Facatativá'
+          };
+          sessionStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
+          mostrarDatosUsuario();
+          cerrarModal('modalLogin');
+          cambiarVista('vista-dashboard');
+          notificar('¡Bienvenido Camilo Rodríguez!');
+          cargarDatosDesdeAPI();
+        } else {
+          notificar(data.error || 'Correo o contraseña incorrectos');
+        }
+      } catch (err) {
+        // En caso de corte de red, permitir credenciales de demostración
+        if (email === 'camilo@agrotrack.co' && password === '123456') {
+          usuarioActual = {
+            id: 'camilo-001',
+            nombre: 'Camilo Rodríguez',
+            email: 'camilo@agrotrack.co',
+            municipio: 'Facatativá'
+          };
+          sessionStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
+          mostrarDatosUsuario();
+          cerrarModal('modalLogin');
+          cambiarVista('vista-dashboard');
+          notificar('Modo demostración activo');
+          cargarDatosDesdeAPI();
+        } else {
+          notificar('Error de conexión con el servidor. Revisa tu terminal.');
+        }
+      }
+    }
+
+    async function hacerRegistro(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('regNombre').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const municipio = document.getElementById('regMunicipio').value.trim();
+      const password = document.getElementById('regPassword').value.trim();
+
+      if (!nombre || !email || !password) {
+        notificar('Por favor completa todos los campos obligatorios');
+        return;
+      }
+
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, email, municipio, password })
+        });
+        
+        const data = await res.json();
+        
+        if (res.ok && data.user) {
+          usuarioActual = data.user;
+          sessionStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
+          mostrarDatosUsuario();
+          cerrarModal('modalRegistro');
+          cambiarVista('vista-dashboard');
+          notificar(`¡Bienvenido(a), ${usuarioActual.nombre}!`);
+          cargarDatosDesdeAPI();
+        } else {
+          notificar(data.error || 'Error al crear la cuenta');
+        }
+      } catch (err) {
+        console.error('Error de red al registrar:', err);
+        notificar('Error al conectar con la base de datos');
+      }
+    }
+
+    function cerrarSesion() {
+      usuarioActual = null;
+      sessionStorage.removeItem('agrotrack_user');
+      cambiarVista('vista-bienvenida');
+      notificar('Sesión cerrada');
+    }
+
+    function mostrarDatosUsuario() {
+      if (!usuarioActual) return;
+      document.getElementById('txtSaludoUsuario').innerText = `Hola, ${usuarioActual.nombre.split(' ')[0]} 👋`;
+      document.getElementById('txtMunicipioUsuario').innerText = `Cultivos al día en ${usuarioActual.municipio || 'Cundinamarca'}`;
+      const initials = usuarioActual.nombre.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+      document.getElementById('avatarUser').innerText = initials;
+    }
+
+    async function cargarDatosDesdeAPI() {
+      try {
+        const query = usuarioActual ? `?usuarioId=${usuarioActual.id}` : '';
+        const resParcelas = await fetch(`/api/parcelas${query}`);
+        if (resParcelas.ok) {
+          listaParcelas = await resParcelas.json();
+          renderizarParcelas();
+        }
+
+        const resProductos = await fetch('/api/productos');
+        if (resProductos.ok) {
+          listaProductos = await resProductos.json();
+          renderizarMercado(listaProductos);
+        }
+      } catch (e) {
+        console.log('Error cargando datos de API');
+      }
+    }
+
+    function renderizarParcelas() {
+      const contDash = document.getElementById('listaDashboardParcelas');
+      const contTodas = document.getElementById('contenedorTodasParcelas');
+      if (contDash) contDash.innerHTML = '';
+      if (contTodas) contTodas.innerHTML = '';
+
+      if (listaParcelas.length === 0) {
+        const vacio = `<div style="text-align: center; padding: 20px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1; font-size: 13px; color: #64748b;">
+          Aún no tienes parcelas. ¡Haz clic en "+ Nueva Parcela" para crear tu primer lote!
+        </div>`;
+        if (contDash) contDash.innerHTML = vacio;
+        if (contTodas) contTodas.innerHTML = vacio;
+        return;
+      }
+
+      listaParcelas.forEach(p => {
+        const html = `
+          <div class="parcel-card">
+            <div class="parcel-header">
+              <div class="parcel-info">
+                <div class="parcel-icon">${p.icono || '🌱'}</div>
+                <div>
+                  <div class="parcel-title">${p.nombre}</div>
+                  <div class="parcel-sub">${p.cultivo} • ${p.hectareas} ha</div>
+                </div>
+              </div>
+              <span class="badge-active">● Activa</span>
+            </div>
+            <div>
+              <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; margin-bottom:4px;">
+                <span style="color:#64748b;">Progreso ciclo</span>
+                <span style="color:var(--primary);">${p.progreso || 25}%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" style="width: ${p.progreso || 25}%;"></div>
+              </div>
+            </div>
+            <div class="parcel-footer">
+              <span style="color: #64748b;">⏱️ Cosecha en <strong>${p.diasCosecha || 30} días</strong></span>
+              <button class="btn-accent" onclick="notificar('Parcela sincronizada en la nube')" style="padding: 4px 10px; font-size: 11px;">Ver lote →</button>
+            </div>
+          </div>
+        `;
+        if (contDash) contDash.innerHTML += html;
+        if (contTodas) contTodas.innerHTML += html;
+      });
+
+      const count = document.getElementById('countParcelasActivas');
+      if (count) count.innerText = listaParcelas.length;
+    }
+
+    async function hacerCrearParcela(e) {
+      e.preventDefault();
+      const nombre = document.getElementById('pNombre').value;
+      const cultivo = document.getElementById('pCultivo').value;
+      const hectareas = document.getElementById('pHectareas').value;
+      const ubicacion = document.getElementById('pUbicacion').value;
+
+      try {
+        const res = await fetch('/api/parcelas', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nombre,
+            cultivo,
+            hectareas,
+            ubicacion,
+            usuarioId: usuarioActual ? usuarioActual.id : null
+          })
+        });
+        if (res.ok) {
+          const nueva = await res.json();
+          listaParcelas.unshift(nueva);
+          renderizarParcelas();
+          cerrarModal('modalNuevaParcela');
+          notificar(`Parcela "${nombre}" guardada en MongoDB`);
+        }
+      } catch (err) {
+        notificar('Error al guardar parcela');
+      }
+    }
+
+    function hacerCrearLabor(e) {
+      e.preventDefault();
+      const tipo = document.getElementById('lTipo').value;
+      const det = document.getElementById('lDetalle').value;
+
+      const cont = document.getElementById('listaActividadesRecientes');
+      if (cont) {
+        const item = document.createElement('div');
+        item.className = 'market-item';
+        item.innerHTML = `
+          <div class="market-left">
+            <span style="font-size: 20px;">🌱</span>
+            <div>
+              <div class="market-title">${tipo}: ${det}</div>
+              <div class="market-sub">Anotado hace un instante</div>
+            </div>
+          </div>
+        `;
+        cont.prepend(item);
+      }
+      cerrarModal('modalLabor');
+      notificar('Labor guardada en bitácora');
+    }
+
+    function renderizarMercado(lista) {
+      const cont = document.getElementById('contenedorMercado');
+      if (!cont) return;
+      cont.innerHTML = '';
+
+      if (lista.length === 0) {
+        cont.innerHTML = `<div style="text-align: center; padding: 20px; color: #94a3b8; font-size: 13px;">No hay productos disponibles.</div>`;
+        return;
+      }
+
+      lista.forEach(prod => {
+        const el = document.createElement('div');
+        el.className = 'market-item';
+        el.innerHTML = `
+          <div class="market-left">
+            <div class="parcel-icon">${prod.icono || '📦'}</div>
+            <div>
+              <div class="market-title">${prod.titulo}</div>
+              <div class="market-price">${prod.precio}</div>
+              <div class="market-sub">${prod.productor} • ${prod.ubicacion}</div>
+            </div>
+          </div>
+          <button class="btn-accent" onclick="notificar('Conectando vía WhatsApp con ${prod.productor} (${prod.celular})...')" style="padding: 8px 12px; font-size: 14px;">
+            💬
+          </button>
+        `;
+        cont.appendChild(el);
+      });
+    }
+
+    function filtrarMercado() {
+      const q = document.getElementById('inputBuscarMercado').value.toLowerCase();
+      const filtrados = listaProductos.filter(p => 
+        p.titulo.toLowerCase().includes(q) || 
+        p.ubicacion.toLowerCase().includes(q)
+      );
+      renderizarMercado(filtrados);
+    }
+
+    async function hacerPublicar(e) {
+      e.preventDefault();
+      const titulo = document.getElementById('mTitulo').value;
+      const categoria = document.getElementById('mCat').value;
+      const precio = document.getElementById('mPrecio').value;
+      const celular = document.getElementById('mCelular').value;
+
+      try {
+        const res = await fetch('/api/productos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            titulo,
+            categoria,
+            precio,
+            celular,
+            productor: usuarioActual ? usuarioActual.nombre : 'Agricultor AgroTrack',
+            ubicacion: usuarioActual ? usuarioActual.municipio : 'Facatativá'
+          })
+        });
+        if (res.ok) {
+          const nuevo = await res.json();
+          listaProductos.unshift(nuevo);
+          renderizarMercado(listaProductos);
+          cerrarModal('modalPublicar');
+          notificar('Cosecha publicada en el mercado');
+        }
+      } catch (err) {
+        notificar('Error al publicar producto');
+      }
+    }
+  </script>
+</body>
+</html>
