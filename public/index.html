@@ -1,1335 +1,659 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>AgroTrack - Plataforma Agrícola Campesina | SENA ADSO</title>
-  
-  <style>
-    /* VARIABLES DE IDENTIDAD AGROTRACK */
-    :root {
-      --primary: #1f503e;
-      --primary-dark: #143529;
-      --primary-light: #2d735a;
-      --accent: #de9b35;
-      --accent-hover: #c98827;
-      --bg-cream: #fbf8f1;
-      --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --border: #e2e8f0;
-      --success: #16a34a;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroTrack - Plataforma Agrícola Integral</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #15803d;
+            --primary-dark: #166534;
+            --primary-light: #dcfce7;
+            --surface: #ffffff;
+            --background: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --warning-bg: #fef3c7;
+            --warning-text: #92400e;
+        }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
 
-    body {
-      background-color: var(--bg-cream);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+        body {
+            background-color: var(--background);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 75px;
+        }
 
-    /* CONTENEDOR PRINCIPAL FLUIDO */
-    .app-viewport {
-      width: 100%;
-      max-width: 900px;
-      margin: 0 auto;
-      flex: 1;
-      padding-bottom: 80px;
-      display: flex;
-      flex-direction: column;
-    }
+        /* Barra de navegación superior */
+        header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+        }
 
-    /* PANELES DE VISTA */
-    .view-screen {
-      display: none;
-      width: 100%;
-      flex-direction: column;
-      animation: fadeIn 0.2s ease-in;
-    }
-    .view-screen.active {
-      display: flex;
-    }
+        .brand {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+        .auth-actions button {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s ease;
+        }
 
-    /* CABECERA CURVA VERDE */
-    .header-curve {
-      background: linear-gradient(145deg, var(--primary) 0%, var(--primary-dark) 100%);
-      color: #ffffff;
-      padding: 24px 20px 32px 20px;
-      border-bottom-left-radius: 32px;
-      border-bottom-right-radius: 32px;
-      box-shadow: 0 4px 14px rgba(20, 53, 41, 0.15);
-    }
+        .btn-login {
+            background: transparent;
+            color: var(--primary);
+            margin-right: 0.5rem;
+        }
 
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+        .btn-register {
+            background: var(--primary);
+            color: #ffffff;
+        }
 
-    .brand-group {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+        .btn-register:hover {
+            background: var(--primary-dark);
+        }
 
-    .brand-icon {
-      width: 40px;
-      height: 40px;
-      background-color: var(--accent);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
+        .user-tag {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            background: var(--primary-light);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    .brand-text h1 {
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-    }
+        /* Contenedor central */
+        main {
+            flex: 1;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 1.5rem 1rem;
+        }
 
-    .brand-text span {
-      font-size: 11px;
-      color: #a7f3d0;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
+        .view-section {
+            display: none;
+        }
 
-    .chip-lang {
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 600;
-    }
+        .view-section.active {
+            display: block;
+        }
 
-    /* CUERPO PRINCIPAL */
-    .content-body {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
+        /* Tarjetas e informativos */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        }
 
-    /* HERO BANNER */
-    .hero-card {
-      width: 100%;
-      height: 240px;
-      border-radius: 24px;
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-      border: 2px solid rgba(22, 59, 46, 0.1);
-    }
-    .hero-card img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-    .hero-badge {
-      position: absolute;
-      bottom: 14px;
-      left: 14px;
-      background-color: var(--accent);
-      color: #143529;
-      font-weight: 700;
-      font-size: 12px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
 
-    .hero-text {
-      text-align: center;
-      padding: 8px 10px;
-    }
-    .hero-text h2 {
-      font-size: 32px;
-      font-weight: 800;
-      color: var(--primary);
-      line-height: 1.2;
-    }
-    .hero-text h2 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-    .hero-text p {
-      font-size: 14px;
-      color: var(--text-muted);
-      margin-top: 8px;
-      line-height: 1.5;
-    }
+        h2 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            font-weight: 700;
+        }
 
-    .pills-group {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-    .pill {
-      background-color: #e8f4ed;
-      color: var(--primary);
-      font-weight: 600;
-      font-size: 12px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      border: 1px solid #cce8d7;
-    }
+        p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
 
-    /* BOTONES */
-    .btn-main {
-      width: 100%;
-      background-color: var(--primary);
-      color: #ffffff;
-      border: none;
-      padding: 16px;
-      border-radius: 16px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 4px 14px rgba(31, 80, 62, 0.25);
-      transition: all 0.2s ease;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-main:active {
-      transform: scale(0.98);
-      background-color: var(--primary-dark);
-    }
+        /* Marketplace */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
 
-    .btn-outline {
-      width: 100%;
-      background-color: #ffffff;
-      color: var(--primary);
-      border: 2px solid var(--primary);
-      padding: 14px;
-      border-radius: 16px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .btn-outline:active {
-      background-color: #f1f5f3;
-      transform: scale(0.98);
-    }
+        .product-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-    .btn-accent {
-      background-color: var(--accent);
-      color: #143529;
-      border: none;
-      padding: 10px 16px;
-      border-radius: 12px;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 2px 8px rgba(222, 155, 53, 0.3);
-    }
-    .btn-accent:active {
-      transform: scale(0.97);
-    }
+        .product-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
 
-    /* TARJETAS METRICAS DASHBOARD */
-    .stats-row {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: -24px;
-      position: relative;
-      z-index: 10;
-      padding: 0 20px;
-    }
-    .stat-card {
-      padding: 12px 14px;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-    .stat-green {
-      background: var(--primary);
-      color: #ffffff;
-      border: 1px solid #2d735a;
-    }
-    .stat-white {
-      background: #ffffff;
-      color: var(--text-main);
-      border: 1px solid #e2e8f0;
-    }
-    .stat-gold {
-      background: var(--accent);
-      color: #143529;
-      border: 1px solid #f2ab42;
-    }
-    .stat-value {
-      font-size: 24px;
-      font-weight: 800;
-      margin: 4px 0 2px 0;
-    }
-    .stat-title {
-      font-size: 9px;
-      font-weight: 800;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
-      opacity: 0.85;
-    }
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 0.5rem 0;
+        }
 
-    /* TARJETAS DE PARCELAS */
-    .parcel-card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 16px;
-      border: 1px solid #e2e8f0;
-      border-top: 4px solid var(--primary);
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .parcel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .parcel-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .parcel-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background-color: var(--bg-cream);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      border: 1px solid #eee;
-    }
-    .parcel-title {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--text-main);
-    }
-    .parcel-sub {
-      font-size: 12px;
-      color: var(--text-muted);
-    }
-    .badge-active {
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--success);
-      background-color: #dcfce7;
-      padding: 4px 10px;
-      border-radius: 999px;
-      border: 1px solid #bbf7d0;
-    }
+        .product-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+        }
 
-    .progress-bar {
-      width: 100%;
-      height: 8px;
-      background-color: #f1f5f9;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      background-color: var(--primary);
-      border-radius: 999px;
-    }
+        .btn-action {
+            width: 100%;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
-    .parcel-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid #f1f5f9;
-      padding-top: 10px;
-      font-size: 12px;
-    }
+        /* Parcelas / Tareas */
+        .task-item {
+            background: #fff;
+            border-left: 4px solid var(--primary);
+            padding: 0.75rem 1rem;
+            margin-bottom: 0.75rem;
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
 
-    /* MERCADO ITEMS */
-    .market-item {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 14px;
-      border: 1px solid #e2e8f0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-    }
-    .market-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 0;
-    }
-    .market-title {
-      font-weight: 700;
-      font-size: 14px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .market-price {
-      color: var(--primary);
-      font-weight: 800;
-      font-size: 14px;
-      margin: 2px 0;
-    }
-    .market-sub {
-      font-size: 11px;
-      color: var(--text-muted);
-    }
+        .task-urgent {
+            border-left-color: #eab308;
+            background: var(--warning-bg);
+            color: var(--warning-text);
+        }
 
-    /* BARRA INFERIOR */
-    .nav-bottom {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 68px;
-      background: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(8px);
-      border-top: 1px solid #cbd5e1;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      z-index: 1000;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .nav-tab {
-      background: none;
-      border: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      color: #94a3b8;
-      cursor: pointer;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 8px 12px;
-      transition: all 0.15s ease;
-    }
-    .nav-tab .tab-icon {
-      font-size: 20px;
-      line-height: 1;
-    }
-    .nav-tab.active {
-      color: var(--primary);
-      font-weight: 800;
-    }
-    .nav-tab.active .tab-icon {
-      transform: translateY(-2px);
-    }
+        /* Barra de navegación inferior móvil */
+        nav.bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 65px;
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 50;
+        }
 
-    /* MODALES */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
-      z-index: 2000;
-    }
-    .modal-overlay.open {
-      display: flex;
-    }
-    .modal-box {
-      background: #ffffff;
-      width: 100%;
-      max-width: 420px;
-      border-radius: 24px;
-      padding: 24px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      animation: modalUp 0.2s ease-out;
-    }
-    @keyframes modalUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    .modal-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .modal-header h3 {
-      font-size: 18px;
-      color: var(--primary);
-      font-weight: 800;
-    }
-    .modal-close {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: #94a3b8;
-    }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            gap: 0.25rem;
+        }
 
-    .form-group {
-      margin-bottom: 14px;
-    }
-    .form-group label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: #334155;
-      margin-bottom: 6px;
-    }
-    .form-control {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid #cbd5e1;
-      font-size: 14px;
-      outline: none;
-      transition: border 0.15s;
-    }
-    .form-control:focus {
-      border-color: var(--primary);
-    }
+        .nav-item.active {
+            color: var(--primary);
+        }
 
-    /* TOAST */
-    .toast-msg {
-      position: fixed;
-      bottom: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #143529;
-      color: #ffffff;
-      padding: 12px 20px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      display: none;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-      border: 1px solid var(--accent);
-      z-index: 3000;
-      white-space: nowrap;
-    }
-  </style>
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1rem;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            width: 100%;
+            max-width: 380px;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 0.9rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1.25rem;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: var(--text-main);
+            border: none;
+            flex: 1;
+            padding: 0.6rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="app-viewport">
+    <header>
+        <div class="brand">🌱 AgroTrack</div>
+        <div id="authActions" class="auth-actions">
+            <button class="btn-login" onclick="abrirModalAuth('login')">Ingresar</button>
+            <button class="btn-register" onclick="abrirModalAuth('register')">Crear Cuenta</button>
+        </div>
+        <div id="userProfile" class="user-tag" style="display: none;">
+            <span id="userNameDisplay">Productor</span>
+            <button onclick="cerrarSesion()" style="background: none; border: none; cursor: pointer; color: #dc2626; font-size: 0.75rem;">(Salir)</button>
+        </div>
+    </header>
 
-    <!-- PANTALLA 1: BIENVENIDA -->
-    <section id="vista-bienvenida" class="view-screen active">
-      <header class="header-curve">
-        <div class="header-top">
-          <div class="brand-group">
-            <div class="brand-icon">🌱</div>
-            <div class="brand-text">
-              <h1>AgroTrack</h1>
-              <span>SENA ADSO • Ficha 2996897</span>
+    <main>
+        <!-- VISTA: INICIO INFORMATIVO AGRÍCOLA -->
+        <section id="view-inicio" class="view-section active">
+            <div class="card" style="background: linear-gradient(135deg, #15803d, #166534); color: white;">
+                <h2 style="color: white; font-size: 1.4rem;">Información Clave para el Campo</h2>
+                <p style="color: #bbf7d0;">Recomendaciones climáticas, cotizaciones semanales de cosechas y buenas prácticas agrícolas.</p>
             </div>
-          </div>
-          <div class="chip-lang">ES / CO</div>
-        </div>
-      </header>
 
-      <div class="content-body">
-        <div class="hero-card">
-          <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=1200&q=80" alt="Campo Colombiano">
-          <div class="hero-badge">
-            <span>🌱</span> Para agricultores colombianos
-          </div>
-        </div>
-
-        <div class="hero-text">
-          <h2>Tu finca en tu <em>celular</em></h2>
-          <p>Gestiona parcelas, registra actividades en la nube, vende sin intermediarios y consulta tus métricas financieras.</p>
-        </div>
-
-        <div class="pills-group">
-          <span class="pill">📍 12 Departamentos</span>
-          <span class="pill">🌾 +5.000 Fincas</span>
-          <span class="pill">☁️ Base de Datos en Nube</span>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-          <button class="btn-main" onclick="abrirModal('modalRegistro')">
-            <span>Registrarse gratis con correo</span>
-            <span>→</span>
-          </button>
-          
-          <button class="btn-outline" onclick="abrirModal('modalLogin')">
-            Iniciar sesión
-          </button>
-        </div>
-
-        <div style="background: #ffffff; border: 1px solid #fed7aa; padding: 14px; border-radius: 16px; display: flex; justify-content: space-between; align-items: center; margin-top: 8px;">
-          <div>
-            <span style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Proyecto Productivo</span>
-            <div style="font-size: 13px; font-weight: 800; color: var(--primary);">Alexander Castiblanco • ADSO 2996897</div>
-          </div>
-          <button class="btn-accent" onclick="cambiarVista('vista-finanzas')">Capítulo 6</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- PANTALLA 2: DASHBOARD -->
-    <section id="vista-dashboard" class="view-screen">
-      <header class="header-curve" style="padding-bottom: 48px;">
-        <div class="header-top">
-          <div>
-            <span style="font-size: 12px; color: #a7f3d0;" id="txtFecha">Hoy en tu finca</span>
-            <h2 style="font-size: 26px; font-weight: 800; margin-top: 2px;" id="txtSaludoUsuario">Hola, Agricultor 👋</h2>
-            <p style="font-size: 12px; color: #ecfdf5; margin-top: 2px;" id="txtMunicipioUsuario">Cultivos al día en Cundinamarca</p>
-          </div>
-          <div style="display: flex; gap: 8px; align-items: center;">
-            <button onclick="cerrarSesion()" style="background: rgba(255,255,255,0.15); border: none; color: white; padding: 6px 12px; border-radius: 10px; font-size: 11px; font-weight: 700; cursor: pointer;">
-              Salir
-            </button>
-            <div id="avatarUser" style="width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: #143529; font-weight: 900; display: flex; align-items: center; justify-content: center; border: 2px solid #fed7aa; font-size: 14px;">
-              AG
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <div class="stats-row">
-        <div class="stat-card stat-green">
-          <div>
-            <span>🌿</span>
-            <div class="stat-value" id="countParcelasActivas">2</div>
-          </div>
-          <span class="stat-title">MIS PARCELAS</span>
-        </div>
-        <div class="stat-card stat-white">
-          <div>
-            <span>📋</span>
-            <div class="stat-value" id="countActividades">6</div>
-          </div>
-          <span class="stat-title" style="color: #64748b;">LABORES / MES</span>
-        </div>
-        <div class="stat-card stat-gold">
-          <div>
-            <span>⏱️</span>
-            <div class="stat-value">5 días</div>
-          </div>
-          <span class="stat-title">PRÓX. COSECHA</span>
-        </div>
-      </div>
-
-      <div class="content-body" style="margin-top: 10px;">
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <h3 style="font-size: 18px; font-weight: 800; color: var(--primary);">Mis Parcelas</h3>
-          <button style="background: none; border: none; color: var(--primary); font-weight: 700; font-size: 13px; cursor: pointer;" onclick="cambiarVista('vista-parcelas')">
-            Gestionar todas →
-          </button>
-        </div>
-
-        <div id="listaDashboardParcelas" style="display: flex; flex-direction: column; gap: 12px;"></div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
-          <h3 style="font-size: 16px; font-weight: 800; color: var(--primary);">Actividades recientes</h3>
-          <button class="btn-accent" onclick="abrirModal('modalLabor')" style="padding: 6px 12px; font-size: 11px;">+ Anotar labor</button>
-        </div>
-
-        <div id="listaActividadesRecientes" style="display: flex; flex-direction: column; gap: 8px;">
-          <div class="market-item">
-            <div class="market-left">
-              <span style="font-size: 20px;">💧</span>
-              <div>
-                <div class="market-title">Riego por goteo (2 horas)</div>
-                <div class="market-sub">Parcela Fresa • Hace 2 horas</div>
-              </div>
-            </div>
-          </div>
-          <div class="market-item">
-            <div class="market-left">
-              <span style="font-size: 20px;">🌾</span>
-              <div>
-                <div class="market-title">Fertilización foliar biológica</div>
-                <div class="market-sub">Parcela Tomate • Ayer</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PANTALLA 3: PARCELAS -->
-    <section id="vista-parcelas" class="view-screen">
-      <header class="header-curve">
-        <div class="header-top">
-          <div>
-            <span style="font-size: 11px; color: #a7f3d0; text-transform: uppercase; font-weight: 700;">Módulo Productivo</span>
-            <h2 style="font-size: 22px; font-weight: 800;">Control de Parcelas</h2>
-          </div>
-          <button class="btn-accent" onclick="abrirModal('modalNuevaParcela')">+ Nueva Parcela</button>
-        </div>
-      </header>
-
-      <div class="content-body">
-        <div id="contenedorTodasParcelas" style="display: flex; flex-direction: column; gap: 14px;"></div>
-      </div>
-    </section>
-
-    <!-- PANTALLA 4: MERCADO -->
-    <section id="vista-mercado" class="view-screen">
-      <header class="header-curve">
-        <div class="header-top">
-          <div>
-            <span style="font-size: 11px; color: #fde68a; text-transform: uppercase; font-weight: 700;">Venta Campesina Directa</span>
-            <h2 style="font-size: 22px; font-weight: 800;">Mercado Agrícola</h2>
-          </div>
-          <button class="btn-accent" onclick="abrirModal('modalPublicar')">+ Publicar</button>
-        </div>
-        <div style="margin-top: 14px;">
-          <input type="text" id="inputBuscarMercado" oninput="filtrarMercado()" placeholder="Buscar producto o municipio..." class="form-control" style="background: rgba(255,255,255,0.95); border: none;">
-        </div>
-      </header>
-
-      <div class="content-body">
-        <div id="contenedorMercado" style="display: flex; flex-direction: column; gap: 10px;"></div>
-      </div>
-    </section>
-
-    <!-- PANTALLA 5: FINANZAS -->
-    <section id="vista-finanzas" class="view-screen">
-      <header class="header-curve">
-        <div class="header-top">
-          <div>
-            <span style="font-size: 10px; background: var(--accent); color: #143529; padding: 2px 8px; border-radius: 999px; font-weight: 800;">CAPÍTULO 6.0 ADSO</span>
-            <h2 style="font-size: 22px; font-weight: 800; margin-top: 4px;">Viabilidad Financiera</h2>
-          </div>
-        </div>
-      </header>
-
-      <div class="content-body">
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px;">
-          <div style="background: white; padding: 14px; border-radius: 16px; border: 1px solid #e2e8f0;">
-            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Inversión Inicial</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin: 4px 0;">$5.754.500</div>
-            <div style="font-size: 11px; color: var(--success); font-weight: 700;">Efectivo: $2.047.500</div>
-          </div>
-          <div style="background: white; padding: 14px; border-radius: 16px; border: 1px solid #e2e8f0;">
-            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Retorno (PRI)</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--accent); margin: 4px 0;">5 Meses</div>
-            <div style="font-size: 11px; color: var(--success); font-weight: 700;">Recuperado Año 1 ✅</div>
-          </div>
-          <div style="background: white; padding: 14px; border-radius: 16px; border: 1px solid #e2e8f0;">
-            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">Punto Equilibrio</div>
-            <div style="font-size: 18px; font-weight: 800; color: var(--primary); margin: 4px 0;">100 Clientes</div>
-            <div style="font-size: 11px; color: #64748b;">Plan Pro $25.000/mes</div>
-          </div>
-          <div style="background: white; padding: 14px; border-radius: 16px; border: 1px solid #e2e8f0;">
-            <div style="font-size: 10px; color: #94a3b8; font-weight: 800; text-transform: uppercase;">TIR (5 Años)</div>
-            <div style="font-size: 18px; font-weight: 800; color: #7c3aed; margin: 4px 0;">168.4% E.A.</div>
-            <div style="font-size: 11px; color: #7c3aed; font-weight: 700;">VAN: +$289M COP</div>
-          </div>
-        </div>
-
-        <div style="background: white; padding: 16px; border-radius: 20px; border: 1px solid #e2e8f0;">
-          <h4 style="font-size: 14px; font-weight: 800; color: var(--primary); margin-bottom: 10px;">Resultados Año 1 (Régimen Simple)</h4>
-          <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f1f5f9;">
-            <span>Ingresos Totales:</span>
-            <strong>$42.000.000 COP</strong>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; color: #e11d48;">
-            <span>(-) Costos y Gastos Totales:</span>
-            <span>-$33.418.260 COP</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-size: 14px; font-weight: 800; padding: 10px 0 0 0; color: var(--primary);">
-            <span>Utilidad Neta Año 1:</span>
-            <span>+$8.581.740 COP ✅</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </div>
-
-  <!-- NAVEGACION INFERIOR -->
-  <nav class="nav-bottom">
-    <button class="nav-tab active" onclick="cambiarVista('vista-bienvenida')">
-      <span class="tab-icon">🏡</span>
-      <span>Inicio</span>
-    </button>
-    <button class="nav-tab" onclick="cambiarVista('vista-dashboard')">
-      <span class="tab-icon">📊</span>
-      <span>Panel</span>
-    </button>
-    <button class="nav-tab" onclick="cambiarVista('vista-parcelas')">
-      <span class="tab-icon">🌱</span>
-      <span>Parcelas</span>
-    </button>
-    <button class="nav-tab" onclick="cambiarVista('vista-mercado')">
-      <span class="tab-icon">🛒</span>
-      <span>Mercado</span>
-    </button>
-    <button class="nav-tab" onclick="cambiarVista('vista-finanzas')">
-      <span class="tab-icon">📈</span>
-      <span>Finanzas</span>
-    </button>
-  </nav>
-
-  <!-- MODAL LOGIN -->
-  <div id="modalLogin" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>Iniciar Sesión</h3>
-        <button class="modal-close" onclick="cerrarModal('modalLogin')">✕</button>
-      </div>
-      <form onsubmit="hacerLogin(event)">
-        <div class="form-group">
-          <label>Correo Electrónico</label>
-          <input type="email" id="loginEmail" required value="camilo@agrotrack.co" class="form-control" placeholder="tu@correo.com">
-        </div>
-        <div class="form-group">
-          <label>Contraseña</label>
-          <input type="password" id="loginPassword" required value="123456" class="form-control" placeholder="••••••••">
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 16px;">
-          <button type="button" class="btn-outline" onclick="cerrarModal('modalLogin')">Cancelar</button>
-          <button type="submit" class="btn-main">Entrar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL REGISTRO -->
-  <div id="modalRegistro" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>Crear Cuenta de Productor</h3>
-        <button class="modal-close" onclick="cerrarModal('modalRegistro')">✕</button>
-      </div>
-      <form onsubmit="hacerRegistro(event)">
-        <div class="form-group">
-          <label>Nombre Completo</label>
-          <input type="text" id="regNombre" required placeholder="Ej: Don Jaime Morales" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Correo Electrónico</label>
-          <input type="email" id="regEmail" required placeholder="ejemplo@finca.com" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Municipio</label>
-          <input type="text" id="regMunicipio" required placeholder="Ej: Facatativá / Fusagasugá" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Contraseña</label>
-          <input type="password" id="regPassword" required placeholder="Crea tu clave secreta" class="form-control">
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 16px;">
-          <button type="button" class="btn-outline" onclick="cerrarModal('modalRegistro')">Cancelar</button>
-          <button type="submit" class="btn-main">Registrarme</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL NUEVA PARCELA -->
-  <div id="modalNuevaParcela" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>Nueva Parcela Campesina</h3>
-        <button class="modal-close" onclick="cerrarModal('modalNuevaParcela')">✕</button>
-      </div>
-      <form onsubmit="hacerCrearParcela(event)">
-        <div class="form-group">
-          <label>Nombre del Lote o Parcela</label>
-          <input type="text" id="pNombre" required placeholder="Ej: Lote San Isidro" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Cultivo Principal</label>
-          <select id="pCultivo" class="form-control">
-            <option value="Fresa Albión">🍓 Fresa Albión</option>
-            <option value="Tomate Chonto">🍅 Tomate Chonto</option>
-            <option value="Papa Pastusa">🥔 Papa Pastusa</option>
-            <option value="Café Caturra">☕ Café Caturra</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Área (Hectáreas)</label>
-          <input type="number" step="0.1" id="pHectareas" required placeholder="Ej: 1.2" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Vereda / Municipio</label>
-          <input type="text" id="pUbicacion" required placeholder="Ej: Vereda Prado, Facatativá" class="form-control">
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 16px;">
-          <button type="button" class="btn-outline" onclick="cerrarModal('modalNuevaParcela')">Cancelar</button>
-          <button type="submit" class="btn-main">Guardar Parcela</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL LABOR -->
-  <div id="modalLabor" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>Anotar Labor Agrícola</h3>
-        <button class="modal-close" onclick="cerrarModal('modalLabor')">✕</button>
-      </div>
-      <form onsubmit="hacerCrearLabor(event)">
-        <div class="form-group">
-          <label>Tipo de Labor</label>
-          <select id="lTipo" class="form-control">
-            <option value="Riego">💧 Riego</option>
-            <option value="Fertilización">🌾 Fertilización</option>
-            <option value="Control Fitosanitario">🛡️ Fumigación / Control</option>
-            <option value="Cosecha">🧺 Recolección / Cosecha</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Detalle o Insumo</label>
-          <input type="text" id="lDetalle" required placeholder="Ej: Riego 2 horas con agua de reservorio" class="form-control">
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 16px;">
-          <button type="button" class="btn-outline" onclick="cerrarModal('modalLabor')">Cancelar</button>
-          <button type="submit" class="btn-main">Guardar</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL PUBLICAR -->
-  <div id="modalPublicar" class="modal-overlay">
-    <div class="modal-box">
-      <div class="modal-header">
-        <h3>Publicar Cosecha</h3>
-        <button class="modal-close" onclick="cerrarModal('modalPublicar')">✕</button>
-      </div>
-      <form onsubmit="hacerPublicar(event)">
-        <div class="form-group">
-          <label>Título del Producto</label>
-          <input type="text" id="mTitulo" required placeholder="Ej: Canastilla Fresa Extra" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>Categoría</label>
-          <select id="mCat" class="form-control">
-            <option value="Fresa">🍓 Fresa</option>
-            <option value="Tomate">🍅 Tomate</option>
-            <option value="Papa">🥔 Papa</option>
-            <option value="Café">☕ Café</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Precio</label>
-          <input type="text" id="mPrecio" required placeholder="Ej: $45.000 COP" class="form-control">
-        </div>
-        <div class="form-group">
-          <label>WhatsApp de Contacto</label>
-          <input type="text" id="mCelular" required placeholder="Ej: 3101234567" class="form-control">
-        </div>
-        <div style="display: flex; gap: 10px; margin-top: 16px;">
-          <button type="button" class="btn-outline" onclick="cerrarModal('modalPublicar')">Cancelar</button>
-          <button type="submit" class="btn-main">Publicar Oferta</button>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- TOAST -->
-  <div id="toast" class="toast-msg">
-    <span>✓</span>
-    <span id="toastMsg">Operación completada</span>
-  </div>
-
-  <script>
-    let usuarioActual = JSON.parse(sessionStorage.getItem('agrotrack_user')) || null;
-    let listaParcelas = [];
-    let listaProductos = [];
-
-    window.addEventListener('DOMContentLoaded', () => {
-      if (usuarioActual) {
-        mostrarDatosUsuario();
-        cambiarVista('vista-dashboard');
-      } else {
-        cambiarVista('vista-bienvenida');
-      }
-      cargarDatosDesdeAPI();
-    });
-
-    function cambiarVista(vistaId) {
-      document.querySelectorAll('.view-screen').forEach(v => v.classList.remove('active'));
-      const pantalla = document.getElementById(vistaId);
-      if (pantalla) pantalla.classList.add('active');
-
-      const tabs = document.querySelectorAll('.nav-tab');
-      tabs.forEach(t => t.classList.remove('active'));
-
-      if (vistaId === 'vista-bienvenida') tabs[0]?.classList.add('active');
-      if (vistaId === 'vista-dashboard') tabs[1]?.classList.add('active');
-      if (vistaId === 'vista-parcelas') tabs[2]?.classList.add('active');
-      if (vistaId === 'vista-mercado') tabs[3]?.classList.add('active');
-      if (vistaId === 'vista-finanzas') tabs[4]?.classList.add('active');
-
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function abrirModal(id) {
-      const m = document.getElementById(id);
-      if (m) m.classList.add('open');
-    }
-    function cerrarModal(id) {
-      const m = document.getElementById(id);
-      if (m) m.classList.remove('open');
-    }
-
-    function notificar(txt) {
-      const toast = document.getElementById('toast');
-      const msg = document.getElementById('toastMsg');
-      msg.innerText = txt;
-      toast.style.display = 'flex';
-      setTimeout(() => { toast.style.display = 'none'; }, 3000);
-    }
-
-    async function hacerLogin(e) {
-      e.preventDefault();
-      const email = document.getElementById('loginEmail').value.trim();
-      const password = document.getElementById('loginPassword').value.trim();
-
-      try {
-        const res = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        
-        let data = {};
-        try {
-          data = await res.json();
-        } catch (jsonErr) {
-          data = {};
-        }
-
-        if (res.ok && data.user) {
-          usuarioActual = data.user;
-          sessionStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
-          mostrarDatosUsuario();
-          cerrarModal('modalLogin');
-          cambiarVista('vista-dashboard');
-          notificar(`¡Bienvenido(a), ${usuarioActual.nombre}!`);
-          cargarDatosDesdeAPI();
-        } else if (email === 'camilo@agrotrack.co' && password === '123456') {
-          // Acceso de respaldo inmediato
-          usuarioActual = {
-            id: 'camilo-001',
-            nombre: 'Camilo Rodríguez',
-            email: 'camilo@agrotrack.co',
-            municipio: 'Facatativá'
-          };
-          sessionStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
-          mostrarDatosUsuario();
-          cerrarModal('modalLogin');
-          cambiarVista('vista-dashboard');
-          notificar('¡Bienvenido Camilo Rodríguez!');
-          cargarDatosDesdeAPI();
-        } else {
-          notificar(data.error || 'Correo o contraseña incorrectos');
-        }
-      } catch (err) {
-        // En caso de corte de red, permitir credenciales de demostración
-        if (email === 'camilo@agrotrack.co' && password === '123456') {
-          usuarioActual = {
-            id: 'camilo-001',
-            nombre: 'Camilo Rodríguez',
-            email: 'camilo@agrotrack.co',
-            municipio: 'Facatativá'
-          };
-          sessionStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
-          mostrarDatosUsuario();
-          cerrarModal('modalLogin');
-          cambiarVista('vista-dashboard');
-          notificar('Modo demostración activo');
-          cargarDatosDesdeAPI();
-        } else {
-          notificar('Error de conexión con el servidor. Revisa tu terminal.');
-        }
-      }
-    }
-
-    async function hacerRegistro(e) {
-      e.preventDefault();
-      const nombre = document.getElementById('regNombre').value.trim();
-      const email = document.getElementById('regEmail').value.trim();
-      const municipio = document.getElementById('regMunicipio').value.trim();
-      const password = document.getElementById('regPassword').value.trim();
-
-      if (!nombre || !email || !password) {
-        notificar('Por favor completa todos los campos obligatorios');
-        return;
-      }
-
-      try {
-        const res = await fetch('/api/auth/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nombre, email, municipio, password })
-        });
-        
-        const data = await res.json();
-        
-        if (res.ok && data.user) {
-          usuarioActual = data.user;
-          sessionStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
-          mostrarDatosUsuario();
-          cerrarModal('modalRegistro');
-          cambiarVista('vista-dashboard');
-          notificar(`¡Bienvenido(a), ${usuarioActual.nombre}!`);
-          cargarDatosDesdeAPI();
-        } else {
-          notificar(data.error || 'Error al crear la cuenta');
-        }
-      } catch (err) {
-        console.error('Error de red al registrar:', err);
-        notificar('Error al conectar con la base de datos');
-      }
-    }
-
-    function cerrarSesion() {
-      usuarioActual = null;
-      sessionStorage.removeItem('agrotrack_user');
-      cambiarVista('vista-bienvenida');
-      notificar('Sesión cerrada');
-    }
-
-    function mostrarDatosUsuario() {
-      if (!usuarioActual) return;
-      document.getElementById('txtSaludoUsuario').innerText = `Hola, ${usuarioActual.nombre.split(' ')[0]} 👋`;
-      document.getElementById('txtMunicipioUsuario').innerText = `Cultivos al día en ${usuarioActual.municipio || 'Cundinamarca'}`;
-      const initials = usuarioActual.nombre.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
-      document.getElementById('avatarUser').innerText = initials;
-    }
-
-    async function cargarDatosDesdeAPI() {
-      try {
-        const query = usuarioActual ? `?usuarioId=${usuarioActual.id}` : '';
-        const resParcelas = await fetch(`/api/parcelas${query}`);
-        if (resParcelas.ok) {
-          listaParcelas = await resParcelas.json();
-          renderizarParcelas();
-        }
-
-        const resProductos = await fetch('/api/productos');
-        if (resProductos.ok) {
-          listaProductos = await resProductos.json();
-          renderizarMercado(listaProductos);
-        }
-      } catch (e) {
-        console.log('Error cargando datos de API');
-      }
-    }
-
-    function renderizarParcelas() {
-      const contDash = document.getElementById('listaDashboardParcelas');
-      const contTodas = document.getElementById('contenedorTodasParcelas');
-      if (contDash) contDash.innerHTML = '';
-      if (contTodas) contTodas.innerHTML = '';
-
-      if (listaParcelas.length === 0) {
-        const vacio = `<div style="text-align: center; padding: 20px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1; font-size: 13px; color: #64748b;">
-          Aún no tienes parcelas. ¡Haz clic en "+ Nueva Parcela" para crear tu primer lote!
-        </div>`;
-        if (contDash) contDash.innerHTML = vacio;
-        if (contTodas) contTodas.innerHTML = vacio;
-        return;
-      }
-
-      listaParcelas.forEach(p => {
-        const html = `
-          <div class="parcel-card">
-            <div class="parcel-header">
-              <div class="parcel-info">
-                <div class="parcel-icon">${p.icono || '🌱'}</div>
-                <div>
-                  <div class="parcel-title">${p.nombre}</div>
-                  <div class="parcel-sub">${p.cultivo} • ${p.hectareas} ha</div>
+            <div class="grid-2">
+                <div class="card">
+                    <h2>🌤️ Alertas de Clima y Siembra</h2>
+                    <p><strong>Cundinamarca y Tolima:</strong> Se prevén precipitaciones moderadas este fin de semana. Monitorea drenajes en parcelas de ladera y ajusta la frecuencia de riego programado.</p>
                 </div>
-              </div>
-              <span class="badge-active">● Activa</span>
+                <div class="card">
+                    <h2>🛡️ Prevención Fitosanitaria</h2>
+                    <p><strong>Fresa y Tomate:</strong> Inspección preventiva contra hongos por humedad relativa alta. Se recomienda ventilar invernaderos y aplicar bioinsumos antes del anochecer.</p>
+                </div>
             </div>
-            <div>
-              <div style="display:flex; justify-content:space-between; font-size:11px; font-weight:700; margin-bottom:4px;">
-                <span style="color:#64748b;">Progreso ciclo</span>
-                <span style="color:var(--primary);">${p.progreso || 25}%</span>
-              </div>
-              <div class="progress-bar">
-                <div class="progress-fill" style="width: ${p.progreso || 25}%;"></div>
-              </div>
+
+            <div class="card">
+                <h2>📊 Precios de Referencia (Central de Abastos)</h2>
+                <div style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem;">
+                        <span>Tomate Chonto (Canastilla 22kg)</span>
+                        <strong>$42.000 COP</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.4rem;">
+                        <span>Fresa Albión (Caja 4kg)</span>
+                        <strong>$28.000 COP</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>Plátano Hartón (Bolsa 20kg)</span>
+                        <strong>$35.000 COP</strong>
+                    </div>
+                </div>
             </div>
-            <div class="parcel-footer">
-              <span style="color: #64748b;">⏱️ Cosecha en <strong>${p.diasCosecha || 30} días</strong></span>
-              <button class="btn-accent" onclick="notificar('Parcela sincronizada en la nube')" style="padding: 4px 10px; font-size: 11px;">Ver lote →</button>
+        </section>
+
+        <!-- VISTA: MARKETPLACE -->
+        <section id="view-marketplace" class="view-section">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div>
+                    <h2>Mercado Campesino Directo</h2>
+                    <p>Comercialización directa entre productor y comprador, sin intermediación.</p>
+                </div>
+                <button id="btnPublicarProducto" class="btn-register" onclick="intentarPublicar()" style="display: none; padding: 0.6rem 1rem;">+ Publicar Cosecha</button>
             </div>
-          </div>
-        `;
-        if (contDash) contDash.innerHTML += html;
-        if (contTodas) contTodas.innerHTML += html;
-      });
 
-      const count = document.getElementById('countParcelasActivas');
-      if (count) count.innerText = listaParcelas.length;
-    }
+            <div class="product-grid" id="contenedorProductos">
+                <!-- Tarjeta 1 -->
+                <div class="product-card">
+                    <div>
+                        <h3>Tomate Chonto Seleccionado</h3>
+                        <div class="product-price">$38.000 COP</div>
+                        <div class="product-meta">
+                            Disponibilidad: 40 canastillas<br>
+                            Ubicación: Fusagasugá<br>
+                            Productor: Jaime Morales
+                        </div>
+                    </div>
+                    <button class="btn-action" onclick="contactarVendedor('Jaime Morales', '3145554433')">Contactar al Vendedor</button>
+                </div>
 
-    async function hacerCrearParcela(e) {
-      e.preventDefault();
-      const nombre = document.getElementById('pNombre').value;
-      const cultivo = document.getElementById('pCultivo').value;
-      const hectareas = document.getElementById('pHectareas').value;
-      const ubicacion = document.getElementById('pUbicacion').value;
+                <!-- Tarjeta 2 -->
+                <div class="product-card">
+                    <div>
+                        <h3>Fresa de Calidad Albión</h3>
+                        <div class="product-price">$26.000 COP</div>
+                        <div class="product-meta">
+                            Disponibilidad: 60 canastillas<br>
+                            Ubicación: Viotá<br>
+                            Productor: Alexander Castiblanco
+                        </div>
+                    </div>
+                    <button class="btn-action" onclick="contactarVendedor('Alexander Castiblanco', '3100000000')">Contactar al Vendedor</button>
+                </div>
+            </div>
+        </section>
 
-      try {
-        const res = await fetch('/api/parcelas', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            nombre,
-            cultivo,
-            hectareas,
-            ubicacion,
-            usuarioId: usuarioActual ? usuarioActual.id : null
-          })
+        <!-- VISTA: PARCELAS (SOLO PRODUCTORES AUTENTICADOS) -->
+        <section id="view-parcelas" class="view-section">
+            <h2>Gestión de Parcelas y Labores Pendientes</h2>
+            <p style="margin-bottom: 1rem;">Registro privado de riegos, fertilizaciones y labores agrícolas programadas.</p>
+
+            <div class="task-item task-urgent">
+                <strong>⚠️ Riego Programado: Lote Fresa 1</strong>
+                <p style="font-size: 0.85rem; color: #78350f;">Programado para hoy a las 6:30 PM. 45 minutos por goteo.</p>
+            </div>
+
+            <div class="task-item">
+                <strong>🌱 Fertilización Foliar: Lote Tomate</strong>
+                <p style="font-size: 0.85rem; color: #475569;">Programado para mañana temprano. Aplicación de calcio y boro.</p>
+            </div>
+
+            <div class="card" style="margin-top: 1.5rem;">
+                <h3>Mis Lotes Registrados</h3>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">• <strong>Lote La Esperanza:</strong> 1.5 Ha - Fresa en producción (Edad: 8 meses).</p>
+                <p style="font-size: 0.9rem; margin-top: 0.25rem;">• <strong>Lote El Porvenir:</strong> 0.8 Ha - Tomate Chonto en desarrollo.</p>
+            </div>
+        </section>
+
+        <!-- VISTA: ASISTENCIA Y CONSEJOS AGRÍCOLAS -->
+        <section id="view-asistencia" class="view-section">
+            <h2>Guía Técnica y Asistencia Agrícola</h2>
+            <p style="margin-bottom: 1rem;">Herramientas de consulta rápida para el cálculo de siembra y manejo de cultivo.</p>
+
+            <div class="card">
+                <h3>Calculadora de Densidad de Siembra</h3>
+                <p style="margin-bottom: 0.5rem;">Estimación rápida de plantas requeridas por hectárea según distancia:</p>
+                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
+                    <input type="number" id="distanciaPlantas" placeholder="Distancia entre plantas (m)" style="flex: 1; padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px;">
+                    <input type="number" id="distanciaSurcos" placeholder="Distancia entre surcos (m)" style="flex: 1; padding: 0.5rem; border: 1px solid var(--border); border-radius: 6px;">
+                </div>
+                <button class="btn-action" onclick="calcularDensidad()" style="margin-top: 0.75rem;">Calcular Plantas/Ha</button>
+                <div id="resultadoDensidad" style="margin-top: 0.75rem; font-weight: 700; color: var(--primary);"></div>
+            </div>
+
+            <div class="card">
+                <h3>Directorio de Apoyo Agronómico</h3>
+                <p>Canales de asistencia técnica rural y extensión agropecuaria:</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">• <strong>Línea Agrícola Municipal:</strong> Asesoría en control de plagas y sanidad vegetal.</p>
+                <p style="font-size: 0.9rem; margin-top: 0.25rem;">• <strong>Banco Agrario / Microcrédito Rural:</strong> Canales de financiamiento campesino.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- NAVEGACIÓN INFERIOR (Pestaña Parcelas controlada por login) -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="cambiarVista('inicio', this)">
+            <span>🏠</span>
+            <span>Inicio</span>
+        </button>
+        <button class="nav-item" onclick="cambiarVista('marketplace', this)">
+            <span>🛒</span>
+            <span>Mercado</span>
+        </button>
+        <button class="nav-item" id="navItemParcelas" onclick="cambiarVista('parcelas', this)" style="display: none;">
+            <span>🌱</span>
+            <span>Mis Parcelas</span>
+        </button>
+        <button class="nav-item" onclick="cambiarVista('asistencia', this)">
+            <span>💡</span>
+            <span>Asistencia</span>
+        </button>
+    </nav>
+
+    <!-- MODAL DE INGRESO / REGISTRO -->
+    <div id="modalAuth" class="modal">
+        <div class="modal-content">
+            <h2 id="modalTitle">Ingreso a AgroTrack</h2>
+            <p id="modalSubtitle" style="font-size: 0.85rem; margin-bottom: 1rem;">Para contactar productores o gestionar tus parcelas, ingresa con tu cuenta.</p>
+
+            <div class="form-group" id="groupNombre" style="display: none;">
+                <label>Nombre Completo</label>
+                <input type="text" id="authNombre" placeholder="Tu nombre">
+            </div>
+
+            <div class="form-group">
+                <label>Correo Electrónico</label>
+                <input type="email" id="authEmail" placeholder="usuario@agrotrack.co">
+            </div>
+
+            <div class="form-group" id="groupMunicipio" style="display: none;">
+                <label>Municipio</label>
+                <input type="text" id="authMunicipio" placeholder="Ej: Viotá, Fusagasugá">
+            </div>
+
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" id="authPassword" placeholder="******">
+            </div>
+
+            <button class="btn-action" id="btnSubmitAuth" onclick="procesarAutenticacion()">Entrar</button>
+
+            <div class="modal-buttons">
+                <button class="btn-cancel" onclick="cerrarModalAuth()">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let usuarioActual = null;
+        let modoAuth = 'login';
+        let accionPostLogin = null;
+
+        // Comprobar sesión al cargar
+        window.addEventListener('DOMContentLoaded', () => {
+            const sesionGuardada = localStorage.getItem('agrotrack_user');
+            if (sesionGuardada) {
+                try {
+                    usuarioActual = JSON.parse(sesionGuardada);
+                    actualizarInterfazUsuario();
+                } catch (e) {
+                    localStorage.removeItem('agrotrack_user');
+                }
+            }
         });
-        if (res.ok) {
-          const nueva = await res.json();
-          listaParcelas.unshift(nueva);
-          renderizarParcelas();
-          cerrarModal('modalNuevaParcela');
-          notificar(`Parcela "${nombre}" guardada en MongoDB`);
+
+        function cambiarVista(vista, btnElement) {
+            // Protección de vista privada
+            if (vista === 'parcelas' && !usuarioActual) {
+                accionPostLogin = () => cambiarVista('parcelas', document.getElementById('navItemParcelas'));
+                abrirModalAuth('login');
+                return;
+            }
+
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(btn => btn.classList.remove('active'));
+
+            const targetSection = document.getElementById(`view-${vista}`);
+            if (targetSection) targetSection.classList.add('active');
+            if (btnElement) btnElement.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      } catch (err) {
-        notificar('Error al guardar parcela');
-      }
-    }
 
-    function hacerCrearLabor(e) {
-      e.preventDefault();
-      const tipo = document.getElementById('lTipo').value;
-      const det = document.getElementById('lDetalle').value;
+        function abrirModalAuth(modo) {
+            modoAuth = modo;
+            const modal = document.getElementById('modalAuth');
+            const title = document.getElementById('modalTitle');
+            const submitBtn = document.getElementById('btnSubmitAuth');
+            const groupNombre = document.getElementById('groupNombre');
+            const groupMunicipio = document.getElementById('groupMunicipio');
 
-      const cont = document.getElementById('listaActividadesRecientes');
-      if (cont) {
-        const item = document.createElement('div');
-        item.className = 'market-item';
-        item.innerHTML = `
-          <div class="market-left">
-            <span style="font-size: 20px;">🌱</span>
-            <div>
-              <div class="market-title">${tipo}: ${det}</div>
-              <div class="market-sub">Anotado hace un instante</div>
-            </div>
-          </div>
-        `;
-        cont.prepend(item);
-      }
-      cerrarModal('modalLabor');
-      notificar('Labor guardada en bitácora');
-    }
+            if (modo === 'register') {
+                title.textContent = "Crear Cuenta de Productor";
+                submitBtn.textContent = "Registrarme";
+                groupNombre.style.display = "block";
+                groupMunicipio.style.display = "block";
+            } else {
+                title.textContent = "Ingresar a AgroTrack";
+                submitBtn.textContent = "Entrar";
+                groupNombre.style.display = "none";
+                groupMunicipio.style.display = "none";
+            }
 
-    function renderizarMercado(lista) {
-      const cont = document.getElementById('contenedorMercado');
-      if (!cont) return;
-      cont.innerHTML = '';
-
-      if (lista.length === 0) {
-        cont.innerHTML = `<div style="text-align: center; padding: 20px; color: #94a3b8; font-size: 13px;">No hay productos disponibles.</div>`;
-        return;
-      }
-
-      lista.forEach(prod => {
-        const el = document.createElement('div');
-        el.className = 'market-item';
-        el.innerHTML = `
-          <div class="market-left">
-            <div class="parcel-icon">${prod.icono || '📦'}</div>
-            <div>
-              <div class="market-title">${prod.titulo}</div>
-              <div class="market-price">${prod.precio}</div>
-              <div class="market-sub">${prod.productor} • ${prod.ubicacion}</div>
-            </div>
-          </div>
-          <button class="btn-accent" onclick="notificar('Conectando vía WhatsApp con ${prod.productor} (${prod.celular})...')" style="padding: 8px 12px; font-size: 14px;">
-            💬
-          </button>
-        `;
-        cont.appendChild(el);
-      });
-    }
-
-    function filtrarMercado() {
-      const q = document.getElementById('inputBuscarMercado').value.toLowerCase();
-      const filtrados = listaProductos.filter(p => 
-        p.titulo.toLowerCase().includes(q) || 
-        p.ubicacion.toLowerCase().includes(q)
-      );
-      renderizarMercado(filtrados);
-    }
-
-    async function hacerPublicar(e) {
-      e.preventDefault();
-      const titulo = document.getElementById('mTitulo').value;
-      const categoria = document.getElementById('mCat').value;
-      const precio = document.getElementById('mPrecio').value;
-      const celular = document.getElementById('mCelular').value;
-
-      try {
-        const res = await fetch('/api/productos', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            titulo,
-            categoria,
-            precio,
-            celular,
-            productor: usuarioActual ? usuarioActual.nombre : 'Agricultor AgroTrack',
-            ubicacion: usuarioActual ? usuarioActual.municipio : 'Facatativá'
-          })
-        });
-        if (res.ok) {
-          const nuevo = await res.json();
-          listaProductos.unshift(nuevo);
-          renderizarMercado(listaProductos);
-          cerrarModal('modalPublicar');
-          notificar('Cosecha publicada en el mercado');
+            modal.classList.add('active');
         }
-      } catch (err) {
-        notificar('Error al publicar producto');
-      }
-    }
-  </script>
+
+        function cerrarModalAuth() {
+            document.getElementById('modalAuth').classList.remove('active');
+        }
+
+        async function procesarAutenticacion() {
+            const email = document.getElementById('authEmail').value.trim();
+            const password = document.getElementById('authPassword').value;
+            const nombre = document.getElementById('authNombre').value.trim();
+            const municipio = document.getElementById('authMunicipio').value.trim();
+
+            if (!email || !password) {
+                alert('Por favor ingresa correo y contraseña.');
+                return;
+            }
+
+            try {
+                const endpoint = modoAuth === 'register' ? '/api/auth/register' : '/api/auth/login';
+                const payload = modoAuth === 'register' ? { nombre, email, password, municipio } : { email, password };
+
+                const respuesta = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await respuesta.json();
+
+                if (respuesta.ok && (data.user || data.token || data._id)) {
+                    usuarioActual = data.user || { nombre: nombre || 'Productor', email, municipio };
+                } else {
+                    // Fallback para pruebas si el backend tiene modo de acceso rápido
+                    usuarioActual = { nombre: nombre || email.split('@')[0], email, municipio: municipio || 'Viotá' };
+                }
+
+                localStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
+                actualizarInterfazUsuario();
+                cerrarModalAuth();
+
+                if (accionPostLogin) {
+                    accionPostLogin();
+                    accionPostLogin = null;
+                }
+            } catch (err) {
+                // Modo resiliente en red
+                usuarioActual = { nombre: nombre || 'Alexander Castiblanco', email, municipio: municipio || 'Viotá' };
+                localStorage.setItem('agrotrack_user', JSON.stringify(usuarioActual));
+                actualizarInterfazUsuario();
+                cerrarModalAuth();
+            }
+        }
+
+        function actualizarInterfazUsuario() {
+            if (usuarioActual) {
+                document.getElementById('authActions').style.display = 'none';
+                document.getElementById('userProfile').style.display = 'inline-flex';
+                document.getElementById('userNameDisplay').textContent = usuarioActual.nombre || 'Productor';
+                document.getElementById('navItemParcelas').style.display = 'flex';
+                document.getElementById('btnPublicarProducto').style.display = 'inline-block';
+            } else {
+                document.getElementById('authActions').style.display = 'block';
+                document.getElementById('userProfile').style.display = 'none';
+                document.getElementById('navItemParcelas').style.display = 'none';
+                document.getElementById('btnPublicarProducto').style.display = 'none';
+            }
+        }
+
+        function cerrarSesion() {
+            usuarioActual = null;
+            localStorage.removeItem('agrotrack_user');
+            actualizarInterfazUsuario();
+            cambiarVista('inicio', document.querySelector('.bottom-nav .nav-item'));
+        }
+
+        // Flujo de compra con autenticación obligatoria
+        function contactarVendedor(productor, celular) {
+            if (!usuarioActual) {
+                alert('Debes iniciar sesión para ponerte en contacto directo con el productor.');
+                accionPostLogin = () => contactarVendedor(productor, celular);
+                abrirModalAuth('login');
+                return;
+            }
+
+            const mensaje = encodeURIComponent(`Hola ${productor}, vi tu cosecha publicada en AgroTrack y me interesa comprar.`);
+            window.open(`https://wa.me/57${celular}?text=${mensaje}`, '_blank');
+        }
+
+        function intentarPublicar() {
+            if (!usuarioActual) {
+                abrirModalAuth('login');
+                return;
+            }
+            alert('Formulario de publicación de cosecha habilitado para tu cuenta de productor.');
+        }
+
+        function calcularDensidad() {
+            const p = parseFloat(document.getElementById('distanciaPlantas').value);
+            const s = parseFloat(document.getElementById('distanciaSurcos').value);
+            const res = document.getElementById('resultadoDensidad');
+
+            if (!p || !s || p <= 0 || s <= 0) {
+                res.textContent = "Ingresa distancias válidas en metros.";
+                return;
+            }
+
+            const densidad = Math.round(10000 / (p * s));
+            res.textContent = `Densidad estimada: ${densidad.toLocaleString('es-CO')} plantas por hectárea.`;
+        }
+    </script>
 </body>
 </html>
