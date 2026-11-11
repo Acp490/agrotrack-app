@@ -3,427 +3,292 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgroTrack - Tu Finca en tu Celular</title>
+    <title>AgroTrack - Tu Finca en tus Manos</title>
+    <!-- Google Fonts: Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --bg-cream: #FAF6F0;
             --green-dark: #123826;
-            --green-primary: #1C5237;
-            --green-light: #E7F3EB;
-            --green-accent: #2E7D32;
-            --orange-warm: #D97706;
-            --orange-soft: #FDE68A;
-            --orange-tag: #F59E0B;
-            --text-dark: #1F2937;
-            --text-muted: #576574;
-            --border-soft: #EAE3D9;
-            --white: #FFFFFF;
+            --green-primary: #1c5438;
+            --green-accent: #2d7a52;
+            --earth-warm: #8C6239;
+            --earth-sand: #D4A373;
+            --bg-page: #FAF6F0;
+            --card-bg: #FFFFFF;
+            --text-main: #1C1917;
+            --text-muted: #64748B;
+            --border-warm: #E6DFD5;
+            --radius-main: 16px;
+            --radius-btn: 10px;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-cream);
-            color: var(--text-dark);
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--bg-page);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            position: relative;
             padding-bottom: 90px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.08);
         }
 
-        /* Cabecera curva verde bosque */
-        .top-header {
-            background-color: var(--green-dark);
-            color: var(--white);
-            padding: 1.25rem 1.5rem 2rem 1.5rem;
-            border-bottom-left-radius: 28px;
-            border-bottom-right-radius: 28px;
+        /* CABECERA SUPERIOR */
+        .top-navbar {
+            background: var(--green-dark);
+            color: white;
+            padding: 1rem 1.2rem;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 15px rgba(18, 56, 38, 0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .brand-container {
+        .brand-logo {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 8px;
+            text-decoration: none;
+            color: white;
         }
 
-        .brand-icon {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .brand-logo i {
             font-size: 1.4rem;
-            box-shadow: 0 4px 10px rgba(217, 119, 6, 0.3);
+            color: var(--earth-sand);
         }
 
-        .brand-text h1 {
-            font-size: 1.5rem;
+        .brand-logo span {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
             font-weight: 800;
             letter-spacing: -0.5px;
-            color: var(--white);
-            line-height: 1.1;
         }
 
-        .brand-text span {
-            font-size: 0.75rem;
-            color: #A3C9B2;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-
-        .header-actions {
+        .user-auth-badge {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 8px;
         }
 
-        .pill-badge {
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--white);
-        }
-
-        .btn-header-auth {
-            background: var(--white);
+        .btn-auth-top {
+            background: white;
             color: var(--green-dark);
             border: none;
             padding: 0.45rem 0.9rem;
-            border-radius: 20px;
+            border-radius: var(--radius-btn);
             font-size: 0.8rem;
             font-weight: 700;
             cursor: pointer;
-            transition: transform 0.15s ease;
+            transition: all 0.2s ease;
         }
 
-        .btn-header-auth:active {
-            transform: scale(0.96);
+        .btn-auth-top:hover {
+            background: var(--earth-sand);
+            color: white;
         }
 
-        /* Contenedor principal */
-        main {
-            max-width: 900px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 1.25rem 1rem;
-        }
-
-        .view-section {
-            display: none;
-            animation: fadeIn 0.25s ease-in-out;
-        }
-
-        .view-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Banner Hero Fotográfico con Sol y Atardecer */
-        .hero-banner {
-            position: relative;
-            width: 100%;
-            height: 240px;
-            border-radius: 24px;
-            overflow: hidden;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-        }
-
-        .hero-banner img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .hero-overlay-tag {
-            position: absolute;
-            bottom: 16px;
-            left: 16px;
-            background: rgba(245, 158, 11, 0.95);
-            backdrop-filter: blur(4px);
-            color: #78350F;
-            font-size: 0.8rem;
-            font-weight: 700;
-            padding: 0.45rem 0.9rem;
-            border-radius: 20px;
+        .user-profile-badge {
             display: flex;
             align-items: center;
-            gap: 0.4rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            padding: 0.4rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
 
-        /* Título de portada cálido */
-        .hero-heading {
-            text-align: center;
-            margin-bottom: 1.5rem;
+        .btn-logout {
+            background: transparent;
+            border: none;
+            color: #f87171;
+            font-size: 0.85rem;
+            cursor: pointer;
+            margin-left: 4px;
         }
 
-        .hero-heading h2 {
-            font-family: 'Comfortaa', cursive;
-            font-size: 2.1rem;
-            font-weight: 700;
-            color: var(--green-dark);
+        /* HERO BANNER CON IMAGEN DE CAMPO Y SOL */
+        .hero-banner {
+            position: relative;
+            height: 190px;
+            background: linear-gradient(180deg, rgba(18, 56, 38, 0.4) 0%, rgba(18, 56, 38, 0.85) 100%),
+                        url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1000&auto=format&fit=crop') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.4rem 1.2rem;
+            color: white;
+        }
+
+        .hero-banner h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 800;
             line-height: 1.2;
         }
 
-        .hero-heading h2 span {
-            color: var(--orange-warm);
-            font-style: italic;
-        }
-
-        .hero-heading p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 0.5rem;
-            line-height: 1.45;
-        }
-
-        /* Badges de métricas centrales */
-        .metrics-row {
-            display: flex;
-            justify-content: center;
-            gap: 0.6rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .metric-pill {
-            background: var(--white);
-            border: 1px solid var(--border-soft);
-            padding: 0.45rem 0.85rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-dark);
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
-        }
-
-        /* Tarjetas de contenido estilo cálido */
-        .content-card {
-            background: var(--white);
-            border: 1px solid var(--border-soft);
-            border-radius: 20px;
-            padding: 1.4rem;
-            margin-bottom: 1.25rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-        }
-
-        .content-card h3 {
-            font-size: 1.15rem;
-            color: var(--green-dark);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.6rem;
-        }
-
-        .content-card p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1rem;
-        }
-
-        /* Precios de referencia */
-        .price-list {
-            margin-top: 0.75rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.6rem;
-        }
-
-        .price-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.6rem 0.75rem;
-            background: #FDFBF7;
-            border-radius: 12px;
-            border: 1px solid var(--border-soft);
-            font-size: 0.9rem;
-        }
-
-        .price-item strong {
-            color: var(--green-primary);
-            font-weight: 800;
-        }
-
-        /* Marketplace */
-        .market-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1.2rem;
-            margin-top: 1.2rem;
-        }
-
-        .market-card {
-            background: var(--white);
-            border: 1px solid var(--border-soft);
-            border-radius: 18px;
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-        }
-
-        .market-card h4 {
-            font-size: 1.15rem;
-            color: var(--green-dark);
-            margin-bottom: 0.35rem;
-        }
-
-        .market-price {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--orange-warm);
-            margin: 0.4rem 0 0.8rem 0;
-        }
-
-        .market-details {
+        .hero-banner p {
             font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.45;
+            color: var(--earth-sand);
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* CONTENIDO DE VISTAS */
+        .main-content {
+            padding: 1.2rem;
+            flex: 1;
+        }
+
+        .tab-view {
+            display: none;
+        }
+
+        .tab-view.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             margin-bottom: 1rem;
         }
 
-        .btn-contact {
-            background: var(--green-dark);
-            color: var(--white);
-            border: none;
-            padding: 0.7rem;
-            border-radius: 14px;
-            font-size: 0.9rem;
+        .section-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            color: var(--green-dark);
             font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s ease;
-            width: 100%;
+        }
+
+        /* TARJETAS */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-warm);
+            border-radius: var(--radius-main);
+            padding: 1.1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        }
+
+        .market-item {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 0.4rem;
+            justify-content: space-between;
+            padding: 0.85rem;
+            background: white;
+            border: 1px solid var(--border-warm);
+            border-radius: 12px;
+            margin-bottom: 0.75rem;
         }
 
-        .btn-contact:hover {
-            background: var(--green-primary);
+        .market-info h4 {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 700;
         }
 
-        /* Parcelas / Tareas Privadas */
-        .task-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 1rem 1.2rem;
-            margin-bottom: 0.8rem;
-            border-left: 5px solid var(--green-primary);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-
-        .task-card.alert {
-            border-left-color: var(--orange-warm);
-            background: #FFFBEB;
-        }
-
-        .task-card strong {
-            color: var(--green-dark);
-            display: block;
-            margin-bottom: 0.25rem;
-        }
-
-        .task-card.alert strong {
-            color: #92400E;
-        }
-
-        .task-card p {
-            font-size: 0.85rem;
+        .market-info p {
+            font-size: 0.8rem;
             color: var(--text-muted);
+            margin-top: 2px;
         }
 
-        /* Barra de navegación inferior redondeada */
+        .market-price {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--green-dark);
+            font-size: 0.95rem;
+            text-align: right;
+        }
+
+        .btn-contact {
+            background: var(--green-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 4px;
+            display: inline-block;
+        }
+
+        /* NAVEGACIÓN INFERIOR FLOTANTE */
         .bottom-nav {
             position: fixed;
             bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--white);
-            border-top: 1px solid var(--border-soft);
-            height: 72px;
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            border-top: 1px solid var(--border-warm);
             display: flex;
             justify-content: space-around;
-            align-items: center;
-            padding: 0 0.5rem;
+            padding: 0.6rem 0;
             z-index: 90;
-            box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.04);
         }
 
-        .nav-button {
+        .nav-btn {
             background: none;
             border: none;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.25rem;
-            color: #8C98A4;
-            font-size: 0.75rem;
+            gap: 4px;
+            color: var(--text-muted);
+            font-size: 0.72rem;
             font-weight: 600;
             cursor: pointer;
-            padding: 0.4rem 0.8rem;
-            border-radius: 12px;
-            transition: color 0.15s ease;
+            flex: 1;
         }
 
-        .nav-button .nav-icon {
-            font-size: 1.35rem;
+        .nav-btn i {
+            font-size: 1.15rem;
         }
 
-        .nav-button.active {
+        .nav-btn.active {
             color: var(--green-dark);
-            font-weight: 800;
         }
 
-        /* Modal Auth */
+        /* MODAL DE AUTENTICACIÓN */
         .auth-modal {
-            position: fixed;
-            inset: 0;
-            background: rgba(18, 56, 38, 0.6);
-            backdrop-filter: blur(4px);
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
-            padding: 1.25rem;
-            z-index: 100;
+            padding: 1rem;
         }
 
         .auth-modal.show {
@@ -431,275 +296,211 @@
         }
 
         .modal-box {
-            background: var(--white);
+            background: white;
             width: 100%;
             max-width: 400px;
-            border-radius: 24px;
+            border-radius: var(--radius-main);
             padding: 1.8rem;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        .modal-box h3 {
-            font-size: 1.3rem;
-            color: var(--green-dark);
-            font-weight: 800;
-            margin-bottom: 0.4rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
         }
 
         .input-group {
-            margin-top: 1rem;
+            margin-bottom: 0.9rem;
+            text-align: left;
         }
 
         .input-group label {
             display: block;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-dark);
-            margin-bottom: 0.35rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.3rem;
         }
 
         .input-group input {
             width: 100%;
-            padding: 0.75rem 0.9rem;
-            border: 1px solid var(--border-soft);
-            border-radius: 12px;
-            font-size: 0.95rem;
-            background: #FDFCF9;
+            padding: 0.65rem 0.85rem;
+            border: 1px solid #cbd5e1;
+            border-radius: var(--radius-btn);
+            font-size: 0.9rem;
             outline: none;
         }
 
         .input-group input:focus {
-            border-color: var(--green-primary);
+            border-color: var(--green-dark);
         }
 
         .btn-modal-action {
             width: 100%;
             background: var(--green-dark);
-            color: var(--white);
+            color: white;
             border: none;
-            padding: 0.8rem;
-            border-radius: 12px;
-            font-size: 0.95rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-btn);
+            font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 1.4rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn-modal-action:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
         }
 
         .btn-modal-close {
             width: 100%;
             background: transparent;
-            color: var(--text-muted);
             border: none;
-            padding: 0.6rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
+            color: #64748b;
+            padding: 0.5rem;
+            font-size: 0.8rem;
             margin-top: 0.4rem;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <!-- CABECERA PRINCIPAL ESTILO ANTERIOR -->
-    <header class="top-header">
-        <div class="brand-container">
-            <div class="brand-icon">🌱</div>
-            <div class="brand-text">
-                <h1>AgroTrack</h1>
-                <span>Plataforma Agrícola</span>
-            </div>
-        </div>
-
-        <div class="header-actions">
-            <div id="unauthHeader">
-                <button class="btn-header-auth" onclick="abrirModal('login')">Ingresar</button>
-            </div>
-            <div id="authHeader" style="display: none; align-items: center; gap: 0.6rem;">
-                <span class="pill-badge" id="nombreUsuarioBadge">Productor</span>
-                <button onclick="cerrarSesion()" style="background: none; border: none; color: #fca5a5; font-size: 0.75rem; font-weight: 700; cursor: pointer;">(Salir)</button>
-            </div>
+<div class="app-container">
+    <!-- BARRA SUPERIOR -->
+    <header class="top-navbar">
+        <a href="javascript:void(0)" onclick="cambiarVista('inicio')" class="brand-logo">
+            <i class="fa-solid fa-seedling"></i>
+            <span>AgroTrack</span>
+        </a>
+        <div class="user-auth-badge" id="contenedorBadgeAuth">
+            <!-- Se inyecta dinámicamente con JavaScript -->
         </div>
     </header>
 
-    <main>
-        <!-- SECCIÓN 1: INICIO INFORMATIVO Y FOTOGRAFÍA HERO -->
-        <section id="view-inicio" class="view-section active">
-            <!-- Banner Fotográfico del Campo y Sol -->
-            <div class="hero-banner">
-                <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1600&auto=format&fit=crop" alt="Campo agrícola iluminado por el sol">
-                <div class="hero-overlay-tag">
-                    <span>🌾</span> Para productores y compradores agrícolas
-                </div>
+    <!-- HERO BANNER -->
+    <section class="hero-banner">
+        <h1>Tu Finca en tus Manos</h1>
+        <p>Monitoreo agrícola, clima y mercado directo</p>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+        <!-- VISTA: INICIO -->
+        <section id="vistaInicio" class="tab-view active">
+            <div class="section-header">
+                <h2>Panel Agroclimático</h2>
+                <span style="font-size: 0.8rem; color: var(--earth-warm); font-weight: 600;">Viotá, Cundinamarca</span>
             </div>
 
-            <!-- Título Portada "Tu finca en tu celular" -->
-            <div class="hero-heading">
-                <h2>Tu finca en tu <span>celular</span></h2>
-                <p>Monitorea labores de campo, consulta precios del día y conecta con compradores de cosecha.</p>
-                
-                <div class="metrics-row">
-                    <div class="metric-pill">📍 Colombia Rural</div>
-                    <div class="metric-pill">🚜 Lotes Productivos</div>
-                    <div class="metric-pill">☁️ Conexión en Nube</div>
-                </div>
-            </div>
-
-            <!-- Guías y Alertas Informativas del Campo -->
-            <div class="grid-cards">
-                <div class="content-card">
-                    <h3>🌦️ Pronóstico Agroclimático</h3>
-                    <p>Precipitaciones intermitentes para la zona central durante el fin de semana. Ideal para revisar drenajes de parcelas bajas y dosificar el uso de fertilizantes nitrogenados.</p>
-                </div>
-
-                <div class="content-card">
-                    <h3>🐛 Alerta de Manejo Fitosanitario</h3>
-                    <p>Humedad relativa alta propicia para mildeo en tomate y botritis en fresa. Se recomienda mantener poda sanitaria y realizar ventilación adecuada en invernaderos.</p>
-                </div>
-            </div>
-
-            <!-- Precios de referencia de mercado -->
-            <div class="content-card">
-                <h3>📈 Cotizaciones de Cosecha (Referencia)</h3>
-                <p>Precios promedio monitoreados en centrales mayoristas para orientar al productor:</p>
-                <div class="price-list">
-                    <div class="price-item">
-                        <span>Tomate Chonto Primera (Canastilla 22kg)</span>
-                        <strong>$38.000 COP</strong>
-                    </div>
-                    <div class="price-item">
-                        <span>Fresa Albión Seleccionada (Caja 4kg)</span>
-                        <strong>$27.000 COP</strong>
-                    </div>
-                    <div class="price-item">
-                        <span>Plátano Hartón Verde (Bolsa 20kg)</span>
-                        <strong>$36.000 COP</strong>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECCIÓN 2: MERCADO / MARKETPLACE -->
-        <section id="view-mercado" class="view-section">
-            <div class="content-card">
-                <h3>🛒 Mercado Agrícola Directo</h3>
-                <p>Catálogo de cosechas disponibles para compra directa al campesino. Inicia sesión para contactar directamente a cada productor.</p>
-            </div>
-
-            <div class="market-grid">
-                <!-- Producto 1 -->
-                <div class="market-card">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
                     <div>
-                        <h4>Tomate Chonto de Invernadero</h4>
-                        <div class="market-price">$36.000 COP / canastilla</div>
-                        <div class="market-details">
-                            📦 Cantidad disponible: 45 canastillas<br>
-                            📍 Municipio: Fusagasugá<br>
-                            👨‍🌾 Productor: Jaime Morales
-                        </div>
+                        <div style="font-size: 2.2rem; font-weight: 800; font-family: 'Outfit'; color: var(--green-dark);">24°C</div>
+                        <div style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">Humedad: 78% · Lluvia moderada</div>
                     </div>
-                    <button class="btn-contact" onclick="contactarProductor('Jaime Morales', 'Tomate Chonto')">
-                        💬 Contactar al Productor
-                    </button>
+                    <i class="fa-solid fa-cloud-sun-rain" style="font-size: 2.5rem; color: var(--earth-sand);"></i>
                 </div>
+            </div>
 
-                <!-- Producto 2 -->
-                <div class="market-card">
-                    <div>
-                        <h4>Fresa Albión Extra</h4>
-                        <div class="market-price">$25.000 COP / caja</div>
-                        <div class="market-details">
-                            📦 Cantidad disponible: 60 cajas<br>
-                            📍 Municipio: Viotá<br>
-                            👨‍🌾 Productor: Alexander Castiblanco
-                        </div>
-                    </div>
-                    <button class="btn-contact" onclick="contactarProductor('Alexander Castiblanco', 'Fresa Albión')">
-                        💬 Contactar al Productor
-                    </button>
+            <div class="card">
+                <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--green-dark);">Recomendación Agronómica</h3>
+                <p style="font-size: 0.82rem; color: var(--text-main); line-height: 1.4;">
+                    Condiciones favorables para control preventivo de broca y roya en cultivos de café. Evite fertilización granulada si hay previsión de escorrentía.
+                </p>
+            </div>
+        </section>
+
+        <!-- VISTA: PARCELAS (SOLO AUTENTICADOS) -->
+        <section id="vistaParcelas" class="tab-view">
+            <div class="section-header">
+                <h2>Gestión de Parcelas</h2>
+                <button class="btn-auth-top" onclick="alert('Funcionalidad de agregar parcela disponible')">+ Nueva Parcela</button>
+            </div>
+            <div class="card">
+                <h3 style="font-size: 0.95rem; font-weight: 700; color: var(--green-dark);">Parcela 1: Lote El Mirador</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">Café Castillo · 2.5 Hectáreas</p>
+                <div style="margin-top: 0.8rem; font-size: 0.8rem; background: var(--bg-page); padding: 0.6rem; border-radius: 8px;">
+                    <strong>Próxima labor:</strong> Riego programado para mañana a las 6:00 AM.
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 3: MIS PARCELAS (SOLO PRODUCTORES AUTENTICADOS) -->
-        <section id="view-parcelas" class="view-section">
-            <div class="content-card">
-                <h3>🌱 Mis Parcelas y Labores Pendientes</h3>
-                <p>Panel privado del productor para seguimiento de riegos, fertilizaciones y labores agrícolas diarias.</p>
+        <!-- VISTA: MERCADO -->
+        <section id="vistaMercado" class="tab-view">
+            <div class="section-header">
+                <h2>Mercado Campesino Directo</h2>
+            </div>
+            
+            <div class="market-item">
+                <div class="market-info">
+                    <h4>Café Especial Pergamino</h4>
+                    <p>Finca Bellavista · Viotá</p>
+                    <button class="btn-contact" onclick="solicitarContacto('Café Especial')">Contactar Vendedor</button>
+                </div>
+                <div class="market-price">
+                    $240,000
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">/ Carga</div>
+                </div>
             </div>
 
-            <div class="task-card alert">
-                <strong>⚠️ Riego Programado Hoy</strong>
-                <p>Lote 1 (Fresa Albión) - Riego por goteo programado a las 6:30 PM durante 40 minutos.</p>
-            </div>
-
-            <div class="task-card">
-                <strong>🌿 Fertilización Foliar</strong>
-                <p>Lote 2 (Tomate) - Aplicación preventiva de calcio y boro programada para mañana a primera hora.</p>
-            </div>
-
-            <div class="content-card" style="margin-top: 1rem;">
-                <h3>Mis Lotes en Producción</h3>
-                <div style="margin-top: 0.5rem; font-size: 0.9rem; line-height: 1.6; color: var(--text-dark);">
-                    <p>• <strong>Finca La Esperanza:</strong> 1.5 Hectáreas - Fresa (8 meses de siembra).</p>
-                    <p>• <strong>Lote El Mirador:</strong> 0.8 Hectáreas - Tomate Chonto bajo invernadero.</p>
+            <div class="market-item">
+                <div class="market-info">
+                    <h4>Plátano Hartón Verde</h4>
+                    <p>Parcela San José · Viotá</p>
+                    <button class="btn-contact" onclick="solicitarContacto('Plátano Hartón')">Contactar Vendedor</button>
+                </div>
+                <div class="market-price">
+                    $35,000
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 400;">/ Racimo</div>
                 </div>
             </div>
         </section>
 
-        <!-- SECCIÓN 4: ASISTENTE AGRÍCOLA (SUSTITUYE FINANZAS) -->
-        <section id="view-asistente" class="view-section">
-            <div class="content-card">
-                <h3>💡 Asistente y Calculadora de Siembra</h3>
-                <p>Calcula la cantidad aproximada de plántulas o semillas requeridas para tu lote:</p>
-
-                <div style="display: flex; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap;">
-                    <div style="flex: 1; min-width: 130px;">
-                        <label style="font-size: 0.8rem; font-weight: 700;">Dist. entre plantas (m):</label>
-                        <input type="number" id="distPlantas" value="0.4" step="0.05" style="width: 100%; padding: 0.6rem; border-radius: 10px; border: 1px solid var(--border-soft); margin-top: 0.25rem;">
-                    </div>
-                    <div style="flex: 1; min-width: 130px;">
-                        <label style="font-size: 0.8rem; font-weight: 700;">Dist. entre surcos (m):</label>
-                        <input type="number" id="distSurcos" value="1.0" step="0.1" style="width: 100%; padding: 0.6rem; border-radius: 10px; border: 1px solid var(--border-soft); margin-top: 0.25rem;">
-                    </div>
-                </div>
-
-                <button class="btn-contact" onclick="calcularPlantas()" style="margin-top: 1rem;">Calcular Población / Ha</button>
-                <div id="resultadoCalculo" style="margin-top: 0.75rem; font-weight: 800; color: var(--green-primary); font-size: 1rem;"></div>
+        <!-- VISTA: ASISTENTE -->
+        <section id="vistaAsistente" class="tab-view">
+            <div class="section-header">
+                <h2>Asistente AgroTrack</h2>
             </div>
-
-            <div class="content-card">
-                <h3>📞 Canales de Orientación Rural</h3>
-                <p>• <strong>Asistencia Técnica Municipal (UMATA):</strong> Jornadas de vacunación y sanidad agropecuaria.</p>
-                <p style="margin-top: 0.35rem;">• <strong>Línea Agropecuaria Departamental:</strong> Guía de transporte de cosechas y movilización de alimentos.</p>
+            <div class="card">
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem;">
+                    Consulte información sobre plagas, fechas de siembra y prácticas para el café y plátano en Cundinamarca.
+                </p>
+                <div class="input-group">
+                    <input type="text" placeholder="Ej: ¿Cómo tratar la roya en floración?">
+                </div>
+                <button class="btn-modal-action" onclick="alert('Respuesta generada por el asistente técnico de AgroTrack.')">Consultar</button>
             </div>
         </section>
     </main>
 
-    <!-- BARRA DE NAVEGACIÓN INFERIOR FLOTANTE -->
+    <!-- NAVEGACIÓN INFERIOR -->
     <nav class="bottom-nav">
-        <button class="nav-button active" onclick="cambiarPestana('inicio', this)">
-            <span class="nav-icon">🏠</span>
+        <button class="nav-btn active" id="tabBtnInicio" onclick="cambiarVista('inicio')">
+            <i class="fa-solid fa-house"></i>
             <span>Inicio</span>
         </button>
-        <button class="nav-button" onclick="cambiarPestana('mercado', this)">
-            <span class="nav-icon">🛒</span>
-            <span>Mercado</span>
-        </button>
-        <button class="nav-button" id="btnNavParcelas" onclick="cambiarPestana('parcelas', this)" style="display: none;">
-            <span class="nav-icon">🌱</span>
+        <button class="nav-btn" id="tabBtnParcelas" style="display: none;" onclick="cambiarVista('parcelas')">
+            <i class="fa-solid fa-map-location-dot"></i>
             <span>Parcelas</span>
         </button>
-        <button class="nav-button" onclick="cambiarPestana('asistente', this)">
-            <span class="nav-icon">💡</span>
+        <button class="nav-btn" id="tabBtnMercado" onclick="cambiarVista('mercado')">
+            <i class="fa-solid fa-store"></i>
+            <span>Mercado</span>
+        </button>
+        <button class="nav-btn" id="tabBtnAsistente" onclick="cambiarVista('asistente')">
+            <i class="fa-solid fa-robot"></i>
             <span>Asistente</span>
         </button>
     </nav>
+</div>
 
-    <!-- MODAL DE INGRESO / REGISTRO -->
-    <div id="authModal" class="auth-modal">
-        <div class="modal-box">
-            <h3 id="modalAuthTitulo">Iniciar Sesión</h3>
-            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Ingresa a AgroTrack para contactar vendedores o gestionar tus cultivos.</p>
+<!-- MODAL DE ACCESO Y VERIFICACIÓN -->
+<div id="authModal" class="auth-modal">
+    <div class="modal-box">
+        <!-- VISTA 1: INICIAR SESIÓN / REGISTRO -->
+        <div id="pantallaFormulario">
+            <h3 id="modalAuthTitulo" style="color: var(--green-dark); font-size: 1.25rem;">Iniciar Sesión</h3>
+            <p id="modalAuthSubtitulo" style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 1.2rem;">
+                Ingresa a AgroTrack para contactar vendedores o gestionar parcelas.
+            </p>
 
             <div class="input-group" id="campoNombreRegistro" style="display: none;">
                 <label>Nombre y Apellido</label>
@@ -716,188 +517,252 @@
                 <input type="password" id="inputPassword" placeholder="******">
             </div>
 
-            <button class="btn-modal-action" id="btnModalAccion" onclick="ejecutarAuth()">Ingresar</button>
-            <button class="btn-modal-close" onclick="cerrarModal()">Cancelar</button>
+            <button type="button" class="btn-modal-action" id="btnModalAccion" onclick="ejecutarAuth()">Ingresar</button>
+
+            <div style="text-align: center; margin-top: 0.9rem;">
+                <a href="javascript:void(0)" id="linkAlternarAuth" onclick="alternarModoAuth()" style="font-size: 0.85rem; color: var(--green-dark); font-weight: 700; text-decoration: underline; cursor: pointer;">
+                    ¿No tienes cuenta? Regístrate aquí
+                </a>
+            </div>
         </div>
-    </div>
-    <!-- MODAL DE ACCESO Y VERIFICACIÓN -->
-    <div id="authModal" class="auth-modal">
-        <div class="modal-box">
-            <!-- VISTA 1: LOGIN / REGISTRO -->
-            <div id="pantallaFormulario">
-                <h3 id="modalAuthTitulo">Iniciar Sesión</h3>
-                <p id="modalAuthSubtitulo" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Ingresa a AgroTrack para contactar vendedores o gestionar parcelas.</p>
 
-                <div class="input-group" id="campoNombreRegistro" style="display: none;">
-                    <label>Nombre y Apellido</label>
-                    <input type="text" id="inputNombre" placeholder="Ej: Alexander Castiblanco">
-                </div>
+        <!-- VISTA 2: CÓDIGO DE CONFIRMACIÓN -->
+        <div id="pantallaCodigo" style="display: none; text-align: center;">
+            <h3 style="color: var(--green-dark); font-size: 1.25rem;">Verifica tu Correo</h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.4rem;">
+                Enviamos un código de 6 dígitos a <br><strong id="txtEmailDestino" style="color: var(--green-dark);"></strong>
+            </p>
 
-                <div class="input-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" id="inputEmail" placeholder="usuario@correo.com">
-                </div>
-
-                <div class="input-group">
-                    <label>Contraseña</label>
-                    <input type="password" id="inputPassword" placeholder="******">
-                </div>
-
-                <button class="btn-modal-action" id="btnModalAccion" onclick="ejecutarAuth()">Ingresar</button>
-
-                <div style="text-align: center; margin-top: 0.8rem;">
-                    <a href="javascript:void(0)" id="linkAlternarAuth" onclick="alternarModoAuth()" style="font-size: 0.8rem; color: var(--green-dark); font-weight: 700;">¿No tienes cuenta? Regístrate aquí</a>
-                </div>
+            <div style="margin: 1.4rem 0;">
+                <input type="text" id="inputCodigoConfirmacion" maxlength="6" placeholder="000000" style="text-align: center; font-size: 1.8rem; letter-spacing: 8px; font-weight: 800; width: 85%; padding: 0.5rem; border: 2px solid var(--green-dark); border-radius: 8px;">
             </div>
 
-            <!-- VISTA 2: INTRODUCIR CÓDIGO DE CORREO -->
-            <div id="pantallaCodigo" style="display: none; text-align: center;">
-                <h3>Verifica tu Correo</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.4rem;">Enviamos un código de 6 dígitos a <br><strong id="txtEmailDestino" style="color: var(--green-dark);"></strong></p>
-
-                <div class="input-group" style="margin-top: 1.2rem;">
-                    <input type="text" id="inputCodigoConfirmacion" maxlength="6" placeholder="000000" style="text-align: center; font-size: 1.6rem; letter-spacing: 6px; font-weight: 800;">
-                </div>
-
-                <button class="btn-modal-action" onclick="confirmarCodigo()">Validar y Entrar</button>
-            </div>
-
-            <button class="btn-modal-close" onclick="cerrarModal()">Cancelar</button>
+            <button type="button" class="btn-modal-action" id="btnValidarCodigo" onclick="confirmarCodigo()">Validar y Entrar</button>
         </div>
+
+        <button type="button" class="btn-modal-close" onclick="cerrarModal()">Cancelar</button>
     </div>
+</div>
 
-    <script>
-        let sesionUsuario = null;
-        let accionPendiente = null;
-        let modoModal = 'login';
+<script>
+    let sesionUsuario = JSON.parse(localStorage.getItem('agrotrack_sesion')) || null;
+    let modoModal = 'login';
+    let correoPendiente = '';
+    let accionPendiente = null;
 
-        // Comprobación de sesión guardada
-        window.addEventListener('DOMContentLoaded', () => {
-            const dataGuardada = localStorage.getItem('agrotrack_sesion');
-            if (dataGuardada) {
-                try {
-                    sesionUsuario = JSON.parse(dataGuardada);
-                    actualizarEstadoVista();
-                } catch (e) {
-                    localStorage.removeItem('agrotrack_sesion');
+    function renderizarBadgeUsuario() {
+        const contenedor = document.getElementById('contenedorBadgeAuth');
+        const tabParcelas = document.getElementById('tabBtnParcelas');
+
+        if (sesionUsuario) {
+            contenedor.innerHTML = `
+                <div class="user-profile-badge">
+                    <i class="fa-solid fa-user-check"></i>
+                    <span>${sesionUsuario.nombre.split(' ')[0]}</span>
+                    <button class="btn-logout" onclick="cerrarSesion()" title="Cerrar Sesión">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            `;
+            if (tabParcelas) tabParcelas.style.display = 'flex';
+        } else {
+            contenedor.innerHTML = `
+                <button class="btn-auth-top" onclick="abrirModal('login')">Ingresar</button>
+            `;
+            if (tabParcelas) tabParcelas.style.display = 'none';
+        }
+    }
+
+    function cambiarVista(vista) {
+        if (vista === 'parcelas' && !sesionUsuario) {
+            accionPendiente = () => cambiarVista('parcelas');
+            abrirModal('login');
+            return;
+        }
+
+        document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
+
+        if (vista === 'inicio') {
+            document.getElementById('vistaInicio').classList.add('active');
+            document.getElementById('tabBtnInicio').classList.add('active');
+        } else if (vista === 'parcelas') {
+            document.getElementById('vistaParcelas').classList.add('active');
+            document.getElementById('tabBtnParcelas').classList.add('active');
+        } else if (vista === 'mercado') {
+            document.getElementById('vistaMercado').classList.add('active');
+            document.getElementById('tabBtnMercado').classList.add('active');
+        } else if (vista === 'asistente') {
+            document.getElementById('vistaAsistente').classList.add('active');
+            document.getElementById('tabBtnAsistente').classList.add('active');
+        }
+    }
+
+    function solicitarContacto(producto) {
+        if (!sesionUsuario) {
+            accionPendiente = () => alert(`Listo para contactar al productor de ${producto}`);
+            abrirModal('login');
+        } else {
+            alert(`Contactando al productor de ${producto}. Se abrirá el canal directo.`);
+        }
+    }
+
+    function abrirModal(modo = 'login') {
+        modoModal = modo;
+        document.getElementById('pantallaFormulario').style.display = 'block';
+        document.getElementById('pantallaCodigo').style.display = 'none';
+        document.getElementById('authModal').classList.add('show');
+        actualizarTextosModal();
+    }
+
+    function cerrarModal() {
+        document.getElementById('authModal').classList.remove('show');
+        accionPendiente = null;
+    }
+
+    function alternarModoAuth() {
+        modoModal = modoModal === 'login' ? 'registro' : 'login';
+        actualizarTextosModal();
+    }
+
+    function actualizarTextosModal() {
+        const titulo = document.getElementById('modalAuthTitulo');
+        const subtitulo = document.getElementById('modalAuthSubtitulo');
+        const btn = document.getElementById('btnModalAccion');
+        const link = document.getElementById('linkAlternarAuth');
+        const campoNombre = document.getElementById('campoNombreRegistro');
+
+        if (modoModal === 'registro') {
+            titulo.textContent = 'Crear Cuenta Real';
+            subtitulo.textContent = 'Te enviaremos un código de confirmación a tu correo.';
+            btn.textContent = 'Enviar Código al Correo';
+            link.textContent = '¿Ya tienes cuenta? Inicia sesión aquí';
+            campoNombre.style.display = 'block';
+        } else {
+            titulo.textContent = 'Iniciar Sesión';
+            subtitulo.textContent = 'Ingresa a AgroTrack para contactar vendedores o gestionar parcelas.';
+            btn.textContent = 'Ingresar';
+            link.textContent = '¿No tienes cuenta? Regístrate aquí';
+            campoNombre.style.display = 'none';
+        }
+    }
+
+    async function ejecutarAuth() {
+        const email = document.getElementById('inputEmail').value.trim();
+        const password = document.getElementById('inputPassword').value.trim();
+        const nombre = document.getElementById('inputNombre').value.trim();
+
+        if (!email || !password) {
+            alert('Por favor ingresa correo y contraseña.');
+            return;
+        }
+
+        if (modoModal === 'registro') {
+            if (!nombre) {
+                alert('Por favor ingresa tu nombre completo.');
+                return;
+            }
+
+            const btn = document.getElementById('btnModalAccion');
+            btn.textContent = 'Enviando código...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre, email, password })
+                });
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.error || 'Error al procesar el registro');
+
+                correoPendiente = email;
+                document.getElementById('txtEmailDestino').textContent = email;
+                document.getElementById('pantallaFormulario').style.display = 'none';
+                document.getElementById('pantallaCodigo').style.display = 'block';
+            } catch (err) {
+                alert(err.message);
+            } finally {
+                btn.textContent = 'Enviar Código al Correo';
+                btn.disabled = false;
+            }
+        } else {
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                if (!res.ok) throw new Error(data.error || 'Credenciales incorrectas');
+
+                sesionUsuario = data.user;
+                localStorage.setItem('agrotrack_sesion', JSON.stringify(sesionUsuario));
+                renderizarBadgeUsuario();
+                cerrarModal();
+
+                if (accionPendiente) {
+                    accionPendiente();
+                    accionPendiente = null;
                 }
+            } catch (err) {
+                alert(err.message);
             }
-        });
+        }
+    }
 
-        function cambiarPestana(vista, elemento) {
-            // Protección de sección privada
-            if (vista === 'parcelas' && !sesionUsuario) {
-                accionPendiente = () => cambiarPestana('parcelas', document.getElementById('btnNavParcelas'));
-                abrirModal('login');
-                return;
-            }
+    async function confirmarCodigo() {
+        const codigo = document.getElementById('inputCodigoConfirmacion').value.trim();
+        const btn = document.getElementById('btnValidarCodigo');
 
-            document.querySelectorAll('.view-section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.nav-button').forEach(b => b.classList.remove('active'));
-
-            const secTarget = document.getElementById(`view-${vista}`);
-            if (secTarget) secTarget.classList.add('active');
-            if (elemento) elemento.classList.add('active');
-
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (codigo.length !== 6) {
+            alert('Ingresa el código numérico de 6 dígitos que llegó a tu correo.');
+            return;
         }
 
-        function abrirModal(modo) {
-            modoModal = modo;
-            const modal = document.getElementById('authModal');
-            const titulo = document.getElementById('modalAuthTitulo');
-            const btnAccion = document.getElementById('btnModalAccion');
-            const campoNombre = document.getElementById('campoNombreRegistro');
+        btn.textContent = 'Validando...';
+        btn.disabled = true;
 
-            if (modo === 'registro') {
-                titulo.textContent = 'Crear Cuenta de Productor';
-                btnAccion.textContent = 'Registrarme';
-                campoNombre.style.display = 'block';
-            } else {
-                titulo.textContent = 'Ingresar a AgroTrack';
-                btnAccion.textContent = 'Ingresar';
-                campoNombre.style.display = 'none';
-            }
+        try {
+            const res = await fetch('/api/auth/verify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: correoPendiente, codigo })
+            });
+            const data = await res.json();
 
-            modal.classList.add('show');
-        }
+            if (!res.ok) throw new Error(data.error || 'Código incorrecto o expirado');
 
-        function cerrarModal() {
-            document.getElementById('authModal').classList.remove('show');
-        }
-
-        function ejecutarAuth() {
-            const email = document.getElementById('inputEmail').value.trim();
-            const pass = document.getElementById('inputPassword').value.trim();
-            const nombre = document.getElementById('inputNombre').value.trim();
-
-            if (!email || !pass) {
-                alert('Por favor ingresa tu correo y contraseña.');
-                return;
-            }
-
-            // Simulación / Conexión exitosa
-            sesionUsuario = {
-                nombre: nombre || (email.split('@')[0]),
-                email: email
-            };
-
+            alert('¡Cuenta verificada exitosamente!');
+            sesionUsuario = data.user;
             localStorage.setItem('agrotrack_sesion', JSON.stringify(sesionUsuario));
-            actualizarEstadoVista();
+            renderizarBadgeUsuario();
             cerrarModal();
 
             if (accionPendiente) {
                 accionPendiente();
                 accionPendiente = null;
             }
+        } catch (err) {
+            alert(err.message);
+        } finally {
+            btn.textContent = 'Validar y Entrar';
+            btn.disabled = false;
         }
+    }
 
-        function actualizarEstadoVista() {
-            if (sesionUsuario) {
-                document.getElementById('unauthHeader').style.display = 'none';
-                document.getElementById('authHeader').style.display = 'flex';
-                document.getElementById('nombreUsuarioBadge').textContent = sesionUsuario.nombre;
-                document.getElementById('btnNavParcelas').style.display = 'flex';
-            } else {
-                document.getElementById('unauthHeader').style.display = 'block';
-                document.getElementById('authHeader').style.display = 'none';
-                document.getElementById('btnNavParcelas').style.display = 'none';
-            }
-        }
+    function cerrarSesion() {
+        localStorage.removeItem('agrotrack_sesion');
+        sesionUsuario = null;
+        renderizarBadgeUsuario();
+        cambiarVista('inicio');
+    }
 
-        function cerrarSesion() {
-            sesionUsuario = null;
-            localStorage.removeItem('agrotrack_sesion');
-            actualizarEstadoVista();
-            cambiarPestana('inicio', document.querySelector('.bottom-nav .nav-button'));
-        }
+    // Inicializar estado de la interfaz al cargar
+    renderizarBadgeUsuario();
+</script>
 
-        // Contactar al vendedor requiriendo sesión
-        function contactarProductor(productor, producto) {
-            if (!sesionUsuario) {
-                alert('Debes iniciar sesión para ponerte en contacto con el productor de la cosecha.');
-                accionPendiente = () => contactarProductor(productor, producto);
-                abrirModal('login');
-                return;
-            }
-
-            const mensaje = encodeURIComponent(`Hola ${productor}, vi tu cosecha de ${producto} en AgroTrack y me interesa comprar.`);
-            window.open(`https://wa.me/573100000000?text=${mensaje}`, '_blank');
-        }
-
-        function calcularPlantas() {
-            const p = parseFloat(document.getElementById('distPlantas').value);
-            const s = parseFloat(document.getElementById('distSurcos').value);
-            const resultado = document.getElementById('resultadoCalculo');
-
-            if (!p || !s || p <= 0 || s <= 0) {
-                resultado.textContent = 'Ingresa valores válidos mayores a cero.';
-                return;
-            }
-
-            const cantidad = Math.round(10000 / (p * s));
-            resultado.textContent = `Población estimada: ${cantidad.toLocaleString('es-CO')} plantas por hectárea.`;
-        }
-    </script>
 </body>
 </html>
