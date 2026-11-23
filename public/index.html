@@ -16,7 +16,6 @@
             --green-dark: #123826;
             --green-primary: #1b5336;
             --gold-warm: #d99a4e;
-            --gold-light: #fbeed9;
             --bg-page: #fdfbf7;
             --card-border: #ede7dc;
             --text-dark: #1e293b;
@@ -45,21 +44,21 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            position: relative;
             padding-bottom: 85px;
         }
 
-        /* CABECERA VERDE SUPERIOR RESPONSIVA */
-        .top-hero-curve {
+        /* CABECERA SUPERIOR LIMPIA Y ORDENADA */
+        .top-navbar {
             background-color: var(--green-dark);
-            padding: 1.1rem 1.5rem 2.8rem 1.5rem;
-            border-bottom-left-radius: 28px;
-            border-bottom-right-radius: 28px;
-            position: relative;
+            padding: 0.95rem 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.12);
         }
 
         .top-bar-inner {
-            max-width: 1140px;
+            max-width: 1180px;
             margin: 0 auto;
             display: flex;
             align-items: center;
@@ -67,94 +66,111 @@
             gap: 1rem;
         }
 
-        .sena-badge {
+        .brand-logo {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            background: #d4954a;
+            gap: 8px;
             color: #ffffff;
-            font-size: 0.72rem;
-            font-weight: 700;
-            padding: 0.38rem 0.9rem;
-            border-radius: 20px;
-            letter-spacing: 0.3px;
-            white-space: nowrap;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            cursor: pointer;
         }
 
-        /* MENÚ DE ESCRITORIO (OCULTO EN MÓVIL) */
+        .brand-logo i {
+            color: var(--gold-warm);
+            font-size: 1.3rem;
+        }
+
+        /* MENÚ DE ESCRITORIO */
         .desktop-nav-links {
             display: none;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
         }
 
         .desktop-nav-btn {
             background: transparent;
             border: none;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.85);
             font-size: 0.88rem;
             font-weight: 600;
-            padding: 0.45rem 0.9rem;
+            padding: 0.5rem 0.95rem;
             border-radius: 10px;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
             transition: all 0.2s ease;
         }
 
         .desktop-nav-btn:hover,
         .desktop-nav-btn.active {
-            background: rgba(255, 255, 255, 0.14);
+            background: rgba(255, 255, 255, 0.15);
             color: #ffffff;
         }
 
         .user-top-link {
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            padding: 0.42rem 0.95rem;
-            border-radius: 16px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            background: #ffffff;
+            color: var(--green-dark);
+            padding: 0.45rem 1rem;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 700;
             border: none;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: background 0.2s;
+            transition: all 0.2s;
         }
 
         .user-top-link:hover {
-            background: rgba(255, 255, 255, 0.25);
+            background: var(--gold-warm);
+            color: #ffffff;
         }
 
-        /* CONTENEDOR PRINCIPAL DE INICIO */
-        .hero-layout-grid {
-            max-width: 1140px;
+        /* CONTENEDOR CENTRAL ESTÁNDAR */
+        .main-wrapper {
+            max-width: 1180px;
             margin: 0 auto;
             width: 100%;
-            display: flex;
-            flex-direction: column;
+            padding: 1.5rem 1.2rem;
+            flex: 1;
         }
 
-        /* TARJETA DEL BANNER DE CAMPO FLOTANTE */
-        .banner-wrapper {
-            padding: 0 1.2rem;
-            margin-top: -2rem;
-            position: relative;
-            z-index: 10;
+        .section-view {
+            display: none;
+            width: 100%;
+        }
+
+        .section-view.active {
+            display: block;
+        }
+
+        /* HERO SECTION EN INICIO */
+        .hero-box {
+            background: #ffffff;
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 1.4rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
         }
 
         .banner-card {
             position: relative;
-            height: 205px;
-            border-radius: 24px;
+            height: 210px;
+            border-radius: 18px;
             overflow: hidden;
             background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-            border: 3px solid #ffffff;
         }
 
         .banner-badge {
@@ -167,14 +183,14 @@
             font-weight: 700;
             padding: 0.42rem 0.95rem;
             border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.18);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
-        /* TEXTOS Y CHIPS INFORMATIVOS */
-        .content-body {
-            padding: 1.6rem 1.4rem;
+        .hero-text-col {
             text-align: center;
-            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .title-main {
@@ -192,25 +208,23 @@
         }
 
         .subtitle-main {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-muted);
             line-height: 1.5;
-            margin-bottom: 1.5rem;
-            padding: 0 0.5rem;
+            margin-bottom: 1.4rem;
         }
 
-        /* CHIPS REDONDEADOS */
         .chips-container {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 1.8rem;
+            margin-bottom: 1.6rem;
         }
 
         .info-chip {
-            background-color: #f1f5f9;
+            background-color: #f8fafc;
             color: #475569;
             font-size: 0.78rem;
             font-weight: 600;
@@ -226,16 +240,17 @@
             background-color: var(--green-dark);
             color: white;
             font-family: 'Outfit', sans-serif;
-            font-size: 1rem;
+            font-size: 0.98rem;
             font-weight: 700;
             width: 100%;
-            max-width: 420px;
-            padding: 0.95rem 1.5rem;
-            border-radius: 14px;
+            max-width: 380px;
+            margin: 0 auto;
+            padding: 0.9rem 1.5rem;
+            border-radius: 12px;
             border: none;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(18, 56, 38, 0.25);
-            transition: transform 0.15s ease, background-color 0.2s ease;
+            box-shadow: 0 6px 18px rgba(18, 56, 38, 0.2);
+            transition: all 0.2s ease;
         }
 
         .btn-register-action:hover {
@@ -243,34 +258,142 @@
             transform: translateY(-1px);
         }
 
-        /* OTRAS VISTAS (PANEL, PARCELAS, MERCADO, FINANZAS) */
-        .section-view {
-            display: none;
-            width: 100%;
+        /* SECCIÓN DE PRODUCTOS PÚBLICOS Y MERCADO */
+        .section-title-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
         }
 
-        .section-view.active {
-            display: block;
+        .section-title-bar h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--green-dark);
         }
 
-        .inner-page-container {
-            max-width: 1140px;
-            margin: 0 auto;
-            padding: 1.5rem 1.2rem;
+        .btn-publish-prod {
+            background: var(--gold-warm);
+            color: white;
+            border: none;
+            padding: 0.55rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .cards-grid {
+        .products-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 1.1rem;
         }
 
-        .view-card {
-            background: white;
+        .product-card {
+            background: #ffffff;
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 1.3rem;
+            padding: 1.25rem;
             box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 0.9rem;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .product-tag {
+            background: #ecfdf5;
+            color: #065f46;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: 20px;
+        }
+
+        .product-price {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--green-dark);
+        }
+
+        .product-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 0.4rem;
+        }
+
+        .product-meta {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            line-height: 1.4;
+        }
+
+        .btn-buy-contact {
+            width: 100%;
+            background: var(--green-dark);
+            color: white;
+            border: none;
+            padding: 0.65rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
+
+        .btn-buy-contact:hover {
+            background: var(--green-primary);
+        }
+
+        /* TARJETAS DE TAREAS EN PARCELAS */
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        .task-badge-pending {
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+        }
+
+        .task-badge-done {
+            background: #dcfce7;
+            color: #166534;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
         }
 
         /* BARRA INFERIOR MÓVIL */
@@ -310,19 +433,12 @@
             color: var(--green-dark);
         }
 
-        /* ADAPTACIÓN RESPONSIVA PARA TABLETS Y COMPUTADORES (PC) */
+        /* ADAPTACIÓN RESPONSIVA PARA PC Y TABLETS */
         @media (min-width: 768px) {
             .screen-container {
-                padding-bottom: 2rem;
+                padding-bottom: 2.5rem;
             }
 
-            .top-hero-curve {
-                padding: 1.2rem 2rem 3.5rem 2rem;
-                border-bottom-left-radius: 36px;
-                border-bottom-right-radius: 36px;
-            }
-
-            /* Mostrar navegación en la barra superior y ocultar barra inferior móvil */
             .desktop-nav-links {
                 display: flex;
             }
@@ -331,56 +447,50 @@
                 display: none;
             }
 
-            /* Diseño horizontal en dos columnas equilibradas para PC */
-            .hero-layout-grid {
+            .hero-box {
                 display: grid;
-                grid-template-columns: 1.1fr 0.9fr;
+                grid-template-columns: 1.15fr 0.85fr;
                 align-items: center;
                 gap: 2.5rem;
-                padding: 0 2rem;
-                margin-top: -2.2rem;
-            }
-
-            .banner-wrapper {
-                padding: 0;
-                margin-top: 0;
+                padding: 2rem;
             }
 
             .banner-card {
-                height: 360px;
-                border-radius: 28px;
+                height: 330px;
             }
 
-            .content-body {
+            .hero-text-col {
                 text-align: left;
-                padding: 2.5rem 0 1rem 0;
             }
 
             .title-main {
-                font-size: 2.85rem;
+                font-size: 2.6rem;
             }
 
             .subtitle-main {
-                font-size: 1.05rem;
-                padding: 0;
+                font-size: 1rem;
             }
 
             .chips-container {
                 justify-content: flex-start;
             }
 
-            .cards-grid {
+            .btn-register-action {
+                margin: 0;
+            }
+
+            .products-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (min-width: 1024px) {
-            .cards-grid {
+            .products-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        /* MODAL DE AUTENTICACIÓN Y VERIFICACIÓN */
+        /* MODALES */
         .auth-overlay {
             display: none;
             position: fixed;
@@ -436,17 +546,14 @@
             margin-bottom: 0.3rem;
         }
 
-        .form-group input {
+        .form-group input,
+        .form-group select {
             width: 100%;
             padding: 0.65rem 0.85rem;
             border: 1px solid #cbd5e1;
             border-radius: 10px;
             font-size: 0.9rem;
             outline: none;
-        }
-
-        .form-group input:focus {
-            border-color: var(--green-dark);
         }
 
         .btn-submit-modal {
@@ -483,12 +590,13 @@
 
 <div class="screen-container">
     
-    <!-- CABECERA VERDE SUPERIOR ADAPTATIVA -->
-    <header class="top-hero-curve">
+    <!-- CABECERA SUPERIOR LIMPIA -->
+    <header class="top-navbar">
         <div class="top-bar-inner">
-            <div class="sena-badge">
-                SENA ADSO • FICHA 2996897
-            </div>
+            <a class="brand-logo" onclick="cambiarTab('inicio')">
+                <i class="fa-solid fa-seedling"></i>
+                <span>AgroTrack</span>
+            </a>
 
             <!-- NAVEGACIÓN EN ESCRITORIO -->
             <nav class="desktop-nav-links">
@@ -498,13 +606,15 @@
                 <button class="desktop-nav-btn" id="deskBtnPanel" onclick="cambiarTab('panel')">
                     <i class="fa-solid fa-chart-column"></i> Panel
                 </button>
-                <button class="desktop-nav-btn" id="deskBtnParcelas" onclick="cambiarTab('parcelas')">
-                    <i class="fa-solid fa-seedling"></i> Parcelas
+                <!-- SOLO VISIBLE AL INICIAR SESIÓN -->
+                <button class="desktop-nav-btn solo-autenticado" id="deskBtnParcelas" style="display: none;" onclick="cambiarTab('parcelas')">
+                    <i class="fa-solid fa-tractor"></i> Mis Parcelas
                 </button>
                 <button class="desktop-nav-btn" id="deskBtnMercado" onclick="cambiarTab('mercado')">
                     <i class="fa-solid fa-cart-shopping"></i> Mercado
                 </button>
-                <button class="desktop-nav-btn" id="deskBtnFinanzas" onclick="cambiarTab('finanzas')">
+                <!-- SOLO VISIBLE AL INICIAR SESIÓN -->
+                <button class="desktop-nav-btn solo-autenticado" id="deskBtnFinanzas" style="display: none;" onclick="cambiarTab('finanzas')">
                     <i class="fa-solid fa-wallet"></i> Finanzas
                 </button>
             </nav>
@@ -517,94 +627,138 @@
         </div>
     </header>
 
-    <!-- VISTA PRINCIPAL (INICIO) -->
-    <div id="vistaInicio" class="section-view active">
-        <div class="hero-layout-grid">
-            <!-- TARJETA DEL BANNER CON FOTO -->
-            <div class="banner-wrapper">
+    <main class="main-wrapper">
+        <!-- VISTA 1: INICIO (PÚBLICA + CATÁLOGO DE COMPRA) -->
+        <div id="vistaInicio" class="section-view active">
+            <div class="hero-box">
                 <div class="banner-card">
                     <div class="banner-badge">
                         🌾 Para agricultores colombianos
                     </div>
                 </div>
+
+                <div class="hero-text-col">
+                    <h1 class="title-main">Tu finca en tu <span>celular</span></h1>
+                    <p class="subtitle-main">
+                        Gestiona parcelas, registra actividades en la nube, vende sin intermediarios y consulta tus métricas financieras.
+                    </p>
+
+                    <div class="chips-container">
+                        <div class="info-chip">📍 12 Departamentos</div>
+                        <div class="info-chip">🌾 +5.000 Fincas</div>
+                        <div class="info-chip">📊 Base de Datos en Nube</div>
+                    </div>
+
+                    <button class="btn-register-action" id="btnHeroRegistro" onclick="abrirModal('registro')">
+                        Registrarse gratis con correo
+                    </button>
+                </div>
             </div>
 
-            <!-- TEXTOS Y CONTENIDO PRINCIPAL -->
-            <div class="content-body">
-                <h1 class="title-main">Tu finca en tu <span>celular</span></h1>
-                <p class="subtitle-main">
-                    Gestiona parcelas, registra actividades en la nube, vende sin intermediarios y consulta tus métricas financieras.
-                </p>
+            <!-- PRODUCTOS DISPONIBLES EN PANTALLA PRINCIPAL (SOLO COMPRA / CONTACTO) -->
+            <div class="section-title-bar">
+                <h2>Cosechas Directas del Campo</h2>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Compra directo al productor sin intermediarios</span>
+            </div>
 
-                <div class="chips-container">
-                    <div class="info-chip">📍 12 Departamentos</div>
-                    <div class="info-chip">🌾 +5.000 Fincas</div>
-                    <div class="info-chip">📊 Base de Datos en Nube</div>
+            <div class="products-grid" id="contenedorProductosInicio">
+                <!-- Se cargan dinámicamente con JS -->
+            </div>
+        </div>
+
+        <!-- VISTA 2: PANEL AGROCLIMÁTICO -->
+        <div id="vistaPanel" class="section-view">
+            <div class="section-title-bar">
+                <h2>Panel Agroclimático</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div>
+                        <span class="product-tag">Clima Actual</span>
+                        <h3 class="product-title">24°C · Cundinamarca</h3>
+                        <p class="product-meta">Humedad relativa del 78%. Condiciones favorables para control preventivo de broca y fertilización foliar.</p>
+                    </div>
                 </div>
+                <div class="product-card">
+                    <div>
+                        <span class="product-tag">Precios de Referencia</span>
+                        <h3 class="product-title">Carga de Café Pergamino</h3>
+                        <p class="product-meta">Promedio regional actualizado: $2,150,000 COP. Tendencia estable durante la semana.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                <button class="btn-register-action" onclick="abrirModal('registro')">
-                    Registrarse gratis con correo
+        <!-- VISTA 3: MIS PARCELAS Y TAREAS (EXCLUSIVO AGRICULTOR AUTENTICADO) -->
+        <div id="vistaParcelas" class="section-view">
+            <div class="section-title-bar">
+                <h2>Mis Parcelas y Tareas del Día</h2>
+                <button class="btn-publish-prod" onclick="abrirModalTarea()">
+                    <i class="fa-solid fa-plus"></i> Nueva Tarea
                 </button>
             </div>
-        </div>
-    </div>
 
-    <!-- OTRAS VISTAS (PANEL, PARCELAS, MERCADO, FINANZAS) -->
-    <div id="vistaPanel" class="section-view">
-        <div class="inner-page-container">
-            <h2 style="color: var(--green-dark); margin-bottom: 1rem; font-family: 'Outfit';">Panel de Control</h2>
-            <div class="cards-grid">
-                <div class="view-card">
-                    <h4>Resumen Agrícola</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Información agroclimática y registros activos de tu finca.</p>
-                </div>
-                <div class="view-card">
-                    <h4>Estado del Clima</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">24°C · Humedad 78% · Condiciones óptimas para labores de campo.</p>
+            <div class="products-grid" id="contenedorParcelas">
+                <div class="product-card">
+                    <div>
+                        <div class="product-header">
+                            <span class="product-tag">Lote El Mirador · 2.5 Ha</span>
+                            <span style="font-size: 0.8rem; font-weight: 700; color: var(--green-dark);">Café Castillo</span>
+                        </div>
+                        <h3 class="product-title">Tareas Programadas</h3>
+                        <div id="listaTareasParcela">
+                            <div class="task-item">
+                                <span><i class="fa-solid fa-droplet" style="color:#0284c7;"></i> Riego por goteo sector norte</span>
+                                <span class="task-badge-pending">Pendiente</span>
+                            </div>
+                            <div class="task-item">
+                                <span><i class="fa-solid fa-leaf" style="color:#16a34a;"></i> Aplicación de abono orgánico</span>
+                                <span class="task-badge-done">Completada</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div id="vistaParcelas" class="section-view">
-        <div class="inner-page-container">
-            <h2 style="color: var(--green-dark); margin-bottom: 1rem; font-family: 'Outfit';">Mis Parcelas</h2>
-            <div class="cards-grid">
-                <div class="view-card">
-                    <h4>Lote El Mirador</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Café Castillo · 2.5 Hectáreas · En producción</p>
+        <!-- VISTA 4: MERCADO (PÚBLICO PARA COMPRAR, PUBLICAR SOLO AUTENTICADOS) -->
+        <div id="vistaMercado" class="section-view">
+            <div class="section-title-bar">
+                <h2>Mercado Campesino</h2>
+                <!-- BOTÓN PUBLICAR SOLO VISIBLE SI INICIÓ SESIÓN -->
+                <button class="btn-publish-prod solo-autenticado" id="btnPublicarMercado" style="display: none;" onclick="abrirModalPublicar()">
+                    <i class="fa-solid fa-plus"></i> Publicar Mi Producto
+                </button>
+            </div>
+
+            <div class="products-grid" id="contenedorProductosMercado">
+                <!-- Se cargan dinámicamente con JS -->
+            </div>
+        </div>
+
+        <!-- VISTA 5: FINANZAS (EXCLUSIVO AGRICULTOR AUTENTICADO) -->
+        <div id="vistaFinanzas" class="section-view">
+            <div class="section-title-bar">
+                <h2>Métricas Financieras de la Finca</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div>
+                        <span class="product-tag">Ingresos del Mes</span>
+                        <h3 class="product-price" style="font-size: 1.6rem; margin-top: 0.5rem;">$4,850,000 COP</h3>
+                        <p class="product-meta">Ventas directas registradas en el mercado sin intermediarios.</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div>
+                        <span class="product-tag">Costos de Insumos</span>
+                        <h3 class="product-price" style="font-size: 1.6rem; margin-top: 0.5rem; color: #b45309;">$1,420,000 COP</h3>
+                        <p class="product-meta">Fertilizantes, control biológico y jornales operativos.</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div id="vistaMercado" class="section-view">
-        <div class="inner-page-container">
-            <h2 style="color: var(--green-dark); margin-bottom: 1rem; font-family: 'Outfit';">Mercado Campesino</h2>
-            <div class="cards-grid">
-                <div class="view-card">
-                    <h4>Café Especial Pergamino</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">$240,000 / Carga · Viotá, Cundinamarca</p>
-                </div>
-                <div class="view-card">
-                    <h4>Plátano Hartón Verde</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">$35,000 / Racimo · Girardot, Cundinamarca</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="vistaFinanzas" class="section-view">
-        <div class="inner-page-container">
-            <h2 style="color: var(--green-dark); margin-bottom: 1rem; font-family: 'Outfit';">Métricas Financieras</h2>
-            <div class="cards-grid">
-                <div class="view-card">
-                    <h4>Balance General</h4>
-                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 6px;">Costos de insumos, mano de obra y ventas directas registradas.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    </main>
 
     <!-- BARRA INFERIOR PARA CELULARES -->
     <nav class="bottom-bar">
@@ -616,25 +770,26 @@
             <i class="fa-solid fa-chart-column"></i>
             <span>Panel</span>
         </button>
-        <button class="nav-item" id="navBtnParcelas" onclick="cambiarTab('parcelas')">
-            <i class="fa-solid fa-seedling"></i>
+        <!-- SOLO VISIBLE AL INICIAR SESIÓN -->
+        <button class="nav-item solo-autenticado" id="navBtnParcelas" style="display: none;" onclick="cambiarTab('parcelas')">
+            <i class="fa-solid fa-tractor"></i>
             <span>Parcelas</span>
         </button>
         <button class="nav-item" id="navBtnMercado" onclick="cambiarTab('mercado')">
             <i class="fa-solid fa-cart-shopping"></i>
             <span>Mercado</span>
         </button>
-        <button class="nav-item" id="navBtnFinanzas" onclick="cambiarTab('finanzas')">
+        <!-- SOLO VISIBLE AL INICIAR SESIÓN -->
+        <button class="nav-item solo-autenticado" id="navBtnFinanzas" style="display: none;" onclick="cambiarTab('finanzas')">
             <i class="fa-solid fa-wallet"></i>
             <span>Finanzas</span>
         </button>
     </nav>
 </div>
 
-<!-- MODAL DE REGISTRO E INICIO DE SESIÓN -->
+<!-- MODAL 1: REGISTRO E INICIO DE SESIÓN -->
 <div id="authModal" class="auth-overlay">
     <div class="modal-card">
-        <!-- PANTALLA 1: FORMULARIO -->
         <div id="seccionFormulario">
             <h3 id="txtTituloModal">Iniciar Sesión</h3>
             <p id="txtSubtituloModal">Ingresa tus credenciales para acceder a AgroTrack.</p>
@@ -663,7 +818,6 @@
             </div>
         </div>
 
-        <!-- PANTALLA 2: CÓDIGO DE 6 DÍGITOS -->
         <div id="seccionCodigo" style="display: none; text-align: center;">
             <h3>Verifica tu Correo</h3>
             <p style="margin-top: 4px;">Ingresa el código numérico de 6 dígitos enviado a <br><strong id="txtEmailDestino" style="color: var(--green-dark);"></strong></p>
@@ -679,27 +833,229 @@
     </div>
 </div>
 
+<!-- MODAL 2: PUBLICAR PRODUCTO (SOLO AGRICULTOR) -->
+<div id="modalPublicar" class="auth-overlay">
+    <div class="modal-card">
+        <h3>Publicar Cosecha</h3>
+        <p>Tu producto aparecerá en la pantalla principal para que compradores te contacten.</p>
+
+        <div class="form-group">
+            <label>Nombre del Producto</label>
+            <input type="text" id="pubNombre" placeholder="Ej: Café Especial Pergamino">
+        </div>
+        <div class="form-group">
+            <label>Precio y Unidad</label>
+            <input type="text" id="pubPrecio" placeholder="Ej: $240,000 / Carga">
+        </div>
+        <div class="form-group">
+            <label>Finca / Municipio</label>
+            <input type="text" id="pubUbicacion" placeholder="Ej: Finca La Esperanza · Viotá">
+        </div>
+        <div class="form-group">
+            <label>Teléfono o WhatsApp de Contacto</label>
+            <input type="text" id="pubTelefono" placeholder="Ej: 310 555 1234">
+        </div>
+
+        <button type="button" class="btn-submit-modal" onclick="guardarProducto()">Publicar Ahora</button>
+        <button type="button" class="btn-cancel-modal" onclick="document.getElementById('modalPublicar').classList.remove('show')">Cancelar</button>
+    </div>
+</div>
+
+<!-- MODAL 3: CONTACTAR VENDEDOR PARA COMPRAR -->
+<div id="modalContacto" class="auth-overlay">
+    <div class="modal-card" style="text-align: center;">
+        <i class="fa-solid fa-handshake" style="font-size: 2.4rem; color: var(--green-dark); margin-bottom: 0.6rem;"></i>
+        <h3>Contacto del Productor</h3>
+        <p id="detalleContactoTexto" style="font-size: 0.92rem; color: var(--text-dark); margin-top: 0.5rem;"></p>
+        <button type="button" class="btn-submit-modal" onclick="document.getElementById('modalContacto').classList.remove('show')">Entendido</button>
+    </div>
+</div>
+
+<!-- MODAL 4: AGREGAR TAREA EN PARCELA -->
+<div id="modalTarea" class="auth-overlay">
+    <div class="modal-card">
+        <h3>Nueva Tarea Agrícola</h3>
+        <p>Registra una labor pendiente para tu parcela.</p>
+        <div class="form-group">
+            <label>Descripción de la Labor</label>
+            <input type="text" id="inputNuevaTarea" placeholder="Ej: Control de maleza en lote 2">
+        </div>
+        <button type="button" class="btn-submit-modal" onclick="agregarTarea()">Guardar Tarea</button>
+        <button type="button" class="btn-cancel-modal" onclick="document.getElementById('modalTarea').classList.remove('show')">Cancelar</button>
+    </div>
+</div>
+
 <script>
     let sesionUsuario = JSON.parse(localStorage.getItem('agrotrack_sesion')) || null;
     let modoActual = 'login';
     let correoEnEspera = '';
+    let accionPostLogin = null;
 
-    function actualizarBadgeUsuario() {
+    // Catálogo inicial de productos
+    let productos = JSON.parse(localStorage.getItem('agrotrack_productos')) || [
+        {
+            id: 1,
+            categoria: 'Café',
+            nombre: 'Café Especial Pergamino Seco',
+            precio: '$240,000 / Carga',
+            ubicacion: 'Finca Bellavista · Viotá, Cundinamarca',
+            vendedor: 'Carlos Ramírez',
+            telefono: '312 456 7890'
+        },
+        {
+            id: 2,
+            categoria: 'Plátano',
+            nombre: 'Plátano Hartón Verde Primera',
+            precio: '$35,000 / Racimo',
+            ubicacion: 'Parcela San José · Girardot, Cundinamarca',
+            vendedor: 'María Fernanda Gómez',
+            telefono: '315 987 6543'
+        },
+        {
+            id: 3,
+            categoria: 'Frutales',
+            nombre: 'Mango Tommy de Exportación',
+            precio: '$45,000 / Canastilla',
+            ubicacion: 'Finca El Sol · Tocaima, Cundinamarca',
+            vendedor: 'Jorge Eliecer Ruiz',
+            telefono: '320 111 2233'
+        }
+    ];
+
+    function renderizarProductos() {
+        const htmlCards = productos.map(prod => `
+            <div class="product-card">
+                <div>
+                    <div class="product-header">
+                        <span class="product-tag">${prod.categoria}</span>
+                        <span class="product-price">${prod.precio}</span>
+                    </div>
+                    <h3 class="product-title">${prod.nombre}</h3>
+                    <p class="product-meta">
+                        <i class="fa-solid fa-location-dot" style="color: var(--gold-warm);"></i> ${prod.ubicacion}<br>
+                        <i class="fa-solid fa-user-tie"></i> Productor: ${prod.vendedor}
+                    </p>
+                </div>
+                <button class="btn-buy-contact" onclick="contactarVendedor(${prod.id})">
+                    <i class="fa-solid fa-phone"></i> Comprar / Contactar Vendedor
+                </button>
+            </div>
+        `).join('');
+
+        const contInicio = document.getElementById('contenedorProductosInicio');
+        const contMercado = document.getElementById('contenedorProductosMercado');
+        if (contInicio) contInicio.innerHTML = htmlCards;
+        if (contMercado) contMercado.innerHTML = htmlCards;
+    }
+
+    function contactarVendedor(idProducto) {
+        const prod = productos.find(p => p.id === idProducto);
+        if (!prod) return;
+
+        if (!sesionUsuario) {
+            accionPostLogin = () => mostrarDatosContacto(prod);
+            abrirModal('login');
+            return;
+        }
+        mostrarDatosContacto(prod);
+    }
+
+    function mostrarDatosContacto(prod) {
+        document.getElementById('detalleContactoTexto').innerHTML = `
+            Estás interesado en <strong>${prod.nombre}</strong> (${prod.precio}).<br><br>
+            <strong>Productor:</strong> ${prod.vendedor}<br>
+            <strong>Ubicación:</strong> ${prod.ubicacion}<br>
+            <strong>Teléfono / WhatsApp:</strong> <span style="color: var(--green-dark); font-size: 1.1rem; font-weight: 800;">${prod.telefono}</span>
+        `;
+        document.getElementById('modalContacto').classList.add('show');
+    }
+
+    function abrirModalPublicar() {
+        if (!sesionUsuario) {
+            abrirModal('login');
+            return;
+        }
+        document.getElementById('modalPublicar').classList.add('show');
+    }
+
+    function guardarProducto() {
+        const nombre = document.getElementById('pubNombre').value.trim();
+        const precio = document.getElementById('pubPrecio').value.trim();
+        const ubicacion = document.getElementById('pubUbicacion').value.trim();
+        const telefono = document.getElementById('pubTelefono').value.trim();
+
+        if (!nombre || !precio || !ubicacion || !telefono) {
+            alert('Por favor completa todos los datos de tu producto.');
+            return;
+        }
+
+        productos.unshift({
+            id: Date.now(),
+            categoria: 'Cosecha Fresca',
+            nombre,
+            precio,
+            ubicacion,
+            vendedor: sesionUsuario.nombre,
+            telefono
+        });
+
+        localStorage.setItem('agrotrack_productos', JSON.stringify(productos));
+        renderizarProductos();
+        document.getElementById('modalPublicar').classList.remove('show');
+        alert('¡Producto publicado! Ya está visible para compradores en la pantalla principal.');
+    }
+
+    function abrirModalTarea() {
+        document.getElementById('modalTarea').classList.add('show');
+    }
+
+    function agregarTarea() {
+        const texto = document.getElementById('inputNuevaTarea').value.trim();
+        if (!texto) return;
+
+        const lista = document.getElementById('listaTareasParcela');
+        const div = document.createElement('div');
+        div.className = 'task-item';
+        div.innerHTML = `
+            <span><i class="fa-solid fa-seedling" style="color: var(--green-dark);"></i> ${texto}</span>
+            <span class="task-badge-pending">Pendiente</span>
+        `;
+        lista.prepend(div);
+        document.getElementById('inputNuevaTarea').value = '';
+        document.getElementById('modalTarea').classList.remove('show');
+    }
+
+    function actualizarEstadoUI() {
         const contenedor = document.getElementById('badgeUsuarioTop');
+        const elementosPrivados = document.querySelectorAll('.solo-autenticado');
+        const btnHero = document.getElementById('btnHeroRegistro');
+
         if (sesionUsuario) {
             contenedor.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.18); color: white; padding: 0.4rem 0.85rem; border-radius: 16px; font-size: 0.78rem; font-weight: 600;">
+                <div style="display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.16); color: white; padding: 0.42rem 0.9rem; border-radius: 12px; font-size: 0.8rem; font-weight: 600;">
                     <i class="fa-solid fa-circle-check" style="color: #4ade80;"></i>
                     <span>${sesionUsuario.nombre.split(' ')[0]}</span>
                     <i class="fa-solid fa-right-from-bracket" onclick="cerrarSesion()" style="cursor: pointer; margin-left: 6px; color: #fca5a5;" title="Cerrar sesión"></i>
                 </div>
             `;
+            elementosPrivados.forEach(el => {
+                el.style.display = el.classList.contains('nav-item') ? 'flex' : 'inline-flex';
+            });
+            if (btnHero) {
+                btnHero.textContent = 'Gestionar Mis Parcelas y Tareas';
+                btnHero.onclick = () => cambiarTab('parcelas');
+            }
         } else {
             contenedor.innerHTML = `
                 <button class="user-top-link" onclick="abrirModal('login')">
                     <i class="fa-solid fa-user"></i> Ingresar
                 </button>
             `;
+            elementosPrivados.forEach(el => el.style.display = 'none');
+            if (btnHero) {
+                btnHero.textContent = 'Registrarse gratis con correo';
+                btnHero.onclick = () => abrirModal('registro');
+            }
         }
     }
 
@@ -732,6 +1088,7 @@
 
     function cerrarModal() {
         document.getElementById('authModal').classList.remove('show');
+        accionPostLogin = null;
     }
 
     function alternarModo() {
@@ -812,9 +1169,15 @@
 
                 sesionUsuario = data.user;
                 localStorage.setItem('agrotrack_sesion', JSON.stringify(sesionUsuario));
-                actualizarBadgeUsuario();
+                actualizarEstadoUI();
                 cerrarModal();
-                cambiarTab('parcelas');
+
+                if (accionPostLogin) {
+                    accionPostLogin();
+                    accionPostLogin = null;
+                } else {
+                    cambiarTab('parcelas');
+                }
             } catch (err) {
                 alert(err.message);
             }
@@ -845,9 +1208,15 @@
             alert('¡Cuenta verificada exitosamente!');
             sesionUsuario = data.user;
             localStorage.setItem('agrotrack_sesion', JSON.stringify(sesionUsuario));
-            actualizarBadgeUsuario();
+            actualizarEstadoUI();
             cerrarModal();
-            cambiarTab('parcelas');
+
+            if (accionPostLogin) {
+                accionPostLogin();
+                accionPostLogin = null;
+            } else {
+                cambiarTab('parcelas');
+            }
         } catch (err) {
             alert(err.message);
         } finally {
@@ -859,11 +1228,13 @@
     function cerrarSesion() {
         localStorage.removeItem('agrotrack_sesion');
         sesionUsuario = null;
-        actualizarBadgeUsuario();
+        actualizarEstadoUI();
         cambiarTab('inicio');
     }
 
-    actualizarBadgeUsuario();
+    // Inicializar
+    renderizarProductos();
+    actualizarEstadoUI();
 </script>
 
 </body>
